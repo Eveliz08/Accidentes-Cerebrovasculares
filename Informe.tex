@@ -1,0 +1,348 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2.5cm, right=2.5cm, top=3cm, bottom=3cm]{geometry}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning}
+\usepackage{float}
+
+
+
+
+\definecolor{colorgreen}{rgb}{0,0.6,0}
+\definecolor{colorgray}{rgb}{0.5,0.5,0.5}
+\definecolor{colorpurple}{rgb}{0.58,0,0.82}
+\definecolor{colorback}{RGB}{255,255,204}
+\definecolor{colorbackground}{RGB}{200,200,221}
+%Definiendo el estilo de las porciones de codigo
+\lstset{
+backgroundcolor=\color{colorbackground},
+commentstyle=\color{colorgreen},
+keywordstyle=\color{colorpurple},
+numberstyle=\tiny\color{colorgray},
+stringstyle=\color{colorgreen},
+basicstyle=\ttfamily\footnotesize,
+breakatwhitespace=false,
+breaklines=true,
+captionpos=b,
+keepspaces=true,
+numbers=left,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2,
+frame=single,
+framesep=2pt,
+rulecolor=\color{black},
+framerule=1pt
+}
+
+
+
+\begin{document}
+\graphicspath{{./}}
+
+\begin{center}
+\text{\huge Análisis estadístico de datos}\\
+\vspace {1cm}
+\text{\huge Dataset: Accidentes cerebrovascular}\\
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/Presentación.jpg}
+\end{figure}
+
+\text{\Large Integrantes:}\\
+\begin{itemize}
+\centering
+\item Eveliz Espinaco Milián
+\item Michell Viu Ramirez
+\item Dayan Cabrera Leal
+\end{itemize}
+\vspace {0.5cm}
+\text{\Large Grupo 311, Ciencia de la computación,}\\
+\text{\Large Facultad de Matemática y Computación, Universidad de La Habana}\\
+\text{Curso 2024-2025}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\textwidth]{img/MATCOM.jpg}
+\end{figure}
+
+
+
+\end{center}
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Descripción del problema}
+El término accidente cerebrovascular (ACV) engloba dos afecciones médicas distintas: los infartos cerebrales y los derrames cerebrales. Los infartos cerebrales, también conocidos como isquemia cerebral, ocurren cuando hay una reducción significativa y repentina del flujo sanguíneo hacia una región del cerebro, lo que resulta en una privación de oxígeno y nutrientes esenciales para las células cerebrales. Esta falta de flujo sanguíneo provoca la muerte celular en el área afectada, generando daños permanentes en las funciones cerebrales. Por otro lado, los derrames cerebrales o hemorragias cerebrales son causados por la ruptura de un vaso sanguíneo en el cerebro, lo que provoca sangrado dentro del tejido cerebral, con efectos igualmente graves.
+
+Según la Organización Mundial de la Salud (OMS), los accidentes cerebrovasculares, junto con las enfermedades de las arterias coronarias, constituyen las principales enfermedades cardiovasculares responsables de millones de muertes anuales en todo el mundo. Estas patologías representan una de las principales causas de morbilidad a nivel global, lo que subraya la necesidad urgente de prevención, diagnóstico temprano y tratamiento eficaz.
+
+El presente informe tiene como objetivo realizar un análisis estadístico utilizando técnicas de estadística descriptiva e inferencia estadística para predecir la probabilidad de que un paciente sufra un accidente cerebrovascular. El análisis se llevará a cabo tomando en cuenta diversos factores como el sexo, la edad, antecedentes de enfermedades y el tabaquismo, entre otros. Para ello, se utilizará una muestra de 200 individuos. El dataset consta de 200 registros (filas) y 11 variables (columnas). Cada fila en el conjunto de datos proporciona información clave sobre una persona, lo que permite realizar un análisis profundo sobre los factores de riesgo asociados con los accidentes cerebrovasculares.
+
+Este enfoque estadístico busca ofrecer predicciones precisas que ayuden a identificar a individuos con mayor riesgo de sufrir un accidente cerebrovascular, contribuyendo a mejorar las estrategias preventivas y de intervención temprana.
+
+\newpage
+\section{Variables Estadísticas}
+A continuación, se describen las variables incluidas en el dataset, detallando su significado, los valores que pueden tomar, y su clasificación correspondiente.
+
+\begin{enumerate}
+
+\item \textbf{Sexo:} Indica el sexo del paciente.
+    \begin{itemize}
+    \item Valores posibles: 0 Mujer; 1 Hombre
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
+    \end{itemize}
+\item \textbf{Edad:}  Representa la edad del paciente en años.
+    \begin{itemize}
+    \item Valores posibles: Enteros positivos
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cuantitativa discreta}. La escala de medición de la variable es \textbf{de razón}.
+    \end{itemize}
+\item \textbf{Hipertensión:}  Indica si el paciente ha tenido diagnóstico de hipertensión arterial en algún momento.
+    \begin{itemize}
+    \item Valores posibles: 0 No ha tenido hipertensión; 1 Ha tenido hipertensión
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
+    \end{itemize}
+\item \textbf{Cardiopatía:} Refleja si el paciente padece alguna enfermedad del corazón.
+    \begin{itemize}
+    \item Valores posibles: 0 No presenta patologías cardíacas; 1 Presenta patologías cardíacas
+    \item Clasificación:Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
+    \end{itemize}
+\item \textbf{Casado:} Señala el estado civil del paciente.
+    \begin{itemize}
+    \item Valores posibles: 0 No está casado; 1 Está casado
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
+    \end{itemize}
+\item \textbf{Tipo de Trabajo:} Describe el tipo de ocupación o situación laboral del paciente.
+    \begin{itemize}
+    \item Valores posibles:
+    \\
+    0: Nunca ha trabajado
+    \\
+    1: Trabajo eventual
+    \\
+    2: Trabajo estatal
+    \\
+    3: Trabajo por cuenta propia
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
+    \end{itemize}
+\item \textbf{Tipo de Residencia:} Indica el área de residencia del paciente.
+    \begin{itemize}
+    \item Valores posibles: 0 Urbana, 1 Rural
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
+    \end{itemize}
+\item \textbf{Nivel Promedio de Glucosa:} Muestra el nivel promedio de azúcar en sangre del paciente en mg/dl (miligramos por decilitro).
+    \begin{itemize}
+    \item Valores posibles: reales positivos
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cuantitativa continua}. La escala de medición de la variable es \textbf{de razón}.
+    \end{itemize}
+\item \textbf{Índice de Masa Corporal (IMC):} Representa el Índice de Masa Corporal del paciente.
+    \begin{itemize}
+    \item Valores posibles: reales positivos
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cuantitativa continua}. La escala de medición de la variable es \textbf{de razón}.
+    \end{itemize}
+\item \textbf{Tabaquismo:} Indica si el paciente es fumador.
+    \begin{itemize}
+    \item Valores posibles: 0 No fuma, 1 Fuma
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
+    \end{itemize}
+\item \textbf{Accidentes:} Guarda la información de si el paciente a sufrido o no accidentes cerebrovasculares.   
+    \begin{itemize}
+    \item Valores posibles: 0 El paciente a sufrido accidentes cerebrovasculares, 1 en caso contrario.
+    \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
+    \end{itemize}
+
+\end{enumerate}
+
+\newpage
+\section{Estadísticos de centro}
+Los estadísticos de centro tratan de ubicar la posición central del conjunto de valores
+para entender la distribución de los datos y detectar posibles valores atípicos. La
+siguiente tabla muestra el resultado de calcular cada uno de ellos en cada una de las
+variables cuantitativas
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/Estadísticos_de_centro.png}
+\end{figure}
+
+En la tabla se observa que los valores de la media (60.43) y la mediana (61) para la variable edad son muy cercanos, 
+así como los valores del primer cuartil (58) y del tercer cuartil (63). Esto indica que la muestra está compuesta 
+principalmente por personas de edad avanzada, entre 58 y 63 años, con una distribución de edades centrada alrededor 
+de los 61 años. Esto sugiere una muestra relativamente homogénea en términos de edad, con una posible ausencia de 
+valores atípicos extremos.
+
+El nivel promedio de glucosa en sangre en ayunas de una persona saludable se encuentra entre 70 y 100 mg/dL 
+(menos del 5.7\%). Valores entre 100 y 125 mg/dL en ayunas se consideran prediabetes, y niveles superiores a 126 mg/dL 
+(6.5\% o más) diagnostican a una persona como diabética. Con esta información, podemos observar que la muestra analizada 
+incluye personas con niveles de glucosa en sangre que varían entre 79.19 y 188.38 mg/dL, abarcando tanto niveles normales 
+como altos. La media de 123.71 mg/dL sugiere que, en promedio, los niveles de glucosa en sangre en la muestra son 
+relativamente altos. La mediana de 93.89 mg/dL indica que la distribución de los niveles de glucosa en sangre está centrada 
+alrededor de este valor. Además, la media significativamente superior a la mediana sugiere la presencia de algunos valores 
+atípicos extremadamente altos que elevan el promedio. La alta dispersión entre el primer y tercer cuartil indica una 
+variabilidad considerable en los niveles de glucosa en sangre.
+
+Los valores del índice de masa corporal (IMC) se clasifican generalmente en: bajo peso (IMC menor de 18.5), peso normal 
+(IMC entre 18.5 y 24.9), sobrepeso (IMC entre 25 y 29.9) y obesidad (IMC de 30 o mayor). Conociendo estas categorías, 
+podemos precisar las características de nuestra muestra respecto a la variable IMC. Observamos que la mayoría de los 
+valores en la muestra se encuentran en el rango de 24.45 a 32.05, lo que indica que estamos analizando principalmente 
+personas con sobrepeso y obesidad. La media y la mediana sugieren una tendencia hacia el sobrepeso en las personas 
+de las observaciones. La diferencia entre el primer cuartil (24.45) y el tercer cuartil (32.05) indica una dispersión 
+moderada en los valores de IMC.
+
+\newpage
+\section{Estadísticos de dispersión}
+Los estadísticos de variabilidad, también conocidos como medidas de dispersión, son
+indicadores que describen cuán dispersos o agrupados están los datos del conjunto. La siguiente tabla muestra el resultado de calcular cada uno de ellos en cada una de
+las variables cuantitativas.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/Estadísticos_de_dispersión.png}
+\end{figure}
+
+Con el resultado del rango podemos tener una idea básica de la dispersión de los datos, pero sin considerar cómo están 
+distribuidos los valores restantes, a diferencia de la desviación estándar y el rango intercuartílico. La desviación estándar 
+proporciona una medida más detallada de la dispersión de los datos respecto a la media, y el rango intercuartílico indica qué 
+tan agrupados están los datos respecto a la mediana.
+
+Los resultados de los estadísticos de dispersión de la variable edad, junto con los estadísticos de centro, nos permiten 
+concluir que la muestra analizada presenta una distribución de edades bastante simétrica y concentrada alrededor de la mediana 
+de 61 años, con una variabilidad moderada. Los valores de la varianza, la desviación estándar y el coeficiente de variabilidad 
+son relativamente bajos. El rango intercuartílico, comparado con el rango total, sugiere que, aunque hay una diferencia de 20 
+años entre el individuo más joven y el más viejo, la mayoría de los datos están concentrados en un rango de 5 años alrededor 
+de la mediana.
+
+En la variable Nivel Promedio de Glucosa, se observan altos valores en las medidas de dispersión, lo que indica una considerable 
+variabilidad en los niveles de glucosa en sangre entre los individuos estudiados. Esta variabilidad sugiere la presencia de 
+valores atípicos extremos, tanto en niveles bajos como muy elevados, lo que refleja una diversidad significativa en la composición 
+de la muestra.
+
+Respecto a la variable IMC, también podemos concluir que la muestra analizada presenta una amplia variabilidad, con la 
+presencia de individuos con bajo peso hasta con obesidad severa. El rango intercuartílico relativamente bajo en comparación 
+con el rango total sugiere que, aunque hay valores extremos, la mayoría de los datos están concentrados alrededor de la 
+mediana.
+
+
+\newpage
+
+
+\section{Histogramas}
+A continuación, se presentan los histogramas de las variables cuantitativas de nuestro estudio, los cuales permiten visualizar la 
+distribución de los datos, su frecuencia y rango. Esto facilitará la detección de valores atípicos, la identificación de la forma 
+de la distribución y una mejor comprensión de la naturaleza de los datos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Histograma_Avg_Glucosa.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Histograma_Edad.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Histograma_IMC.png}
+\end{figure}
+
+El histograma de la variable Edad visualiza las conclusiones obtenidas a partir de los estadísticos de centro y 
+dispersión. La distribución de esta variable es bastante simétrica, con la mayoría de los individuos concentrados alrededor 
+de la media y con una ausencia de valores atípicos significativos. La mayor frecuencia de edades se encuentra entre los 58 y 63 años. Esta distribución uniforme y centrada alrededor de la media 
+facilita el análisis y la interpretación de los datos, ya que reduce la influencia de valores extremos.
+
+\newpage
+
+\section{Gráficos Boxplot}
+Los gráficos Boxplot permiten ilustrar la distribución de los datos a través de sus cuartiles. Estos gráficos son útiles para identificar la dispersión, la simetría, las medidas de tendencia central, así como de dispersión y la presencia de valores atípicos en los datos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Boxplt_Avg_Glucosa.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Boxplt_Edad.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Boxplt_IMC.png}
+\end{figure}
+
+Se observan valores extremos en la variable Índice de Masa Corporal (IMC) que distorsionan la uniformidad de su distribución. 
+En el gráfico de la variable Nivel Promedio de Glucosa en Sangre, se aprecia una concentración de observaciones en el intervalo de 60 a 100, 
+así como una evidente asimetría en la distribución.
+
+\newpage
+
+\section{Gráficos de pastel}
+A continuación visualizaremos la proporcion en la que aparecen las variables cualitativas respecto del total
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Cardiopatia.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Accidentes.png}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Casado.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Fumar.png}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Hipertension.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Sex.png}
+    \end{minipage}
+    \vfill
+    % \begin{minipage}{0.45\textwidth}
+    %     \centering
+    %     \includegraphics[width=0.3\textwidth]{img/grafico_pastel_Tipo_Residencia.png}
+    % \end{minipage}
+    % \begin{minipage}{0.45\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{img/grafico_pastel_Tipo_Trabajo.png.jpg}
+    % \end{minipage}
+\end{figure}
+
+\newpage
+
+\section{Correlación entre variables}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/matriz_correlacion.png}
+\end{figure}
+
+\subsection{Indice de masa Corporal y nivel promedio de glucosa en sangre}
+Realizando la prueba de correlacion de Pearson a los valores de las variables IMC y Avg Glucosa de nuestras observaciones obtenemos un coeficiente de correlacion igual a 0.9371 lo cual indica que hay una relacion fuerte positiva.
+Un IMC elevado (sobrepeso u obesidad) puede aumentar los niveles de glucosa en sangre porque el cuerpo se vuelve menos eficiente al usar la insulina, 
+lo que lleva a una resistencia a la insulina, por lo que tienen un mayor riesgo de desarrollar diabetes tipo 2.
+Mantener un IMC dentro de un rango saludable ayuda a mantener la glucosa en niveles normales, reduciendo el riesgo de problemas de salud como la diabetes.
+
+\end{document}
