@@ -345,4 +345,76 @@ Un IMC elevado (sobrepeso u obesidad) puede aumentar los niveles de glucosa en s
 lo que lleva a una resistencia a la insulina, por lo que tienen un mayor riesgo de desarrollar diabetes tipo 2.
 Mantener un IMC dentro de un rango saludable ayuda a mantener la glucosa en niveles normales, reduciendo el riesgo de problemas de salud como la diabetes.
 
+\section{Modelos de Regresion logística:}
+Para este modelo se tomaron como variables independientes: Sex, Fumar e Hipertension, y como
+variable dependiente Accidente.
+\\
+Accuracy: 0.95
+La precisión del modelo es del 95\%, lo que indica que el modelo 
+predice correctamente el 95\% de los casos en el conjunto de prueba.
+\\
+Confusion Matrix:
+\[
+\begin{bmatrix}
+19 & 2 \\
+0 & 19
+\end{bmatrix}\]
+
+La matriz de confusión muestra:
+\\
+19 verdaderos negativos (TN): casos donde no hubo accidente y el modelo predijo correctamente.
+\\
+19 verdaderos positivos (TP): casos donde hubo accidente y el modelo predijo correctamente.
+\\
+2 falsos positivos (FP): casos donde no hubo accidente pero el modelo predijo que sí.
+\\
+0 falsos negativos (FN): casos donde hubo accidente pero el modelo predijo que no.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Clase & Precisión & Exhaustividad & F1-score & Soporte \\ \hline
+        0 & 1.00 & 0.90 & 0.95 & 21 \\ \hline
+        1 & 0.90 & 1.00 & 0.95 & 19 \\ \hline
+        \textbf{Exactitud} & \multicolumn{4}{c|}{0.95} \\ \hline
+        \textbf{Promedio macro} & 0.95 & 0.95 & 0.95 & 40 \\ \hline
+        \textbf{Promedio ponderado} & 0.95 & 0.95 & 0.95 & 40 \\ \hline
+    \end{tabular}
+    \caption{Informe de clasificación}
+    \label{tab:classification_report}
+\end{table}
+
+
+Precisión (precision): La precisión para la clase 0 es 1.00 y para la clase 1 es 0.90. Esto significa que el modelo es muy preciso en predecir la clase 0, pero tiene un 10% de error en predecir la clase 1.
+\\
+Exhaustividad (recall): La exhaustividad para la clase 0 es 0.90 y para la clase 1 es 1.00. Esto significa que el modelo identifica correctamente todos los casos de la clase 1, pero pierde un 10% de los casos de la clase 0.
+F1-score: El F1-score es 0.95 para ambas clases, lo que indica un buen equilibrio entre precisión y exhaustividad.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        Variable & Coeficiente \\ \hline
+        Sex & 0.045076 \\ \hline
+        Fumar & 4.293324 \\ \hline
+        Hipertension & 1.841522 \\ \hline
+    \end{tabular}
+    \caption{Coeficientes del modelo de regresión logística}
+    \label{tab:coeficientes_modelo}
+\end{table}
+
+Los coeficientes indican la relación entre cada variable independiente y la probabilidad de que ocurra un Accidente:
+\\
+Sex: Un coeficiente de 0.045076 sugiere que el sexo tiene un impacto positivo muy pequeño en la probabilidad de accidente.
+\\
+Fumar: Un coeficiente de 4.293324 indica que fumar aumenta significativamente la probabilidad de accidente.
+\\
+Hipertension: Un coeficiente de 1.841522 sugiere que la hipertensión también aumenta la probabilidad de accidente, aunque en menor medida que fumar.
+\\
+Conclusión
+El modelo de regresión logística tiene una alta precisión y es capaz de predecir correctamente 
+la mayoría de los casos. Las variables Fumar y Hipertension tienen un impacto significativo en 
+la probabilidad de accidente, mientras que el Sex tiene un impacto menor.
+
 \end{document}
