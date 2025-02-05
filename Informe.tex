@@ -247,15 +247,16 @@ de los datos. También realizaremos test de normalidad
 
 
 \section{Distribución de la variable Edad}
-
+\vspace {-0.8cm}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{img/Histogramas/Histograma_Edad.png}
 \end{figure}
 
+\vspace {-1cm}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{img/Boxplot/Boxplt_Edad.png}
+    \includegraphics[width=0.9\textwidth]{img/Boxplot/Boxplt_Edad.png}
 \end{figure}
 
 \begin{figure}[H]
@@ -330,7 +331,7 @@ de los test de normalidad concluimos que esta variable no sigue una distribució
 
 \section{Relación entre variables}
 
-\section{Matrices de correlacion}
+\subsection{Matrices de correlacion}
 Para visualizar de manera clara la relación entre todas las variables del dataset, utilizamos matrices de correlación. Estas matrices muestran un coeficiente que varía entre -1 y 1 (1: Correlación positiva perfecta, -1: Correlación negativa perfecta, 0: No hay correlación lineal.), el cual mide la fuerza y la dirección de la relación entre las variables. Este análisis es fundamental para determinar modelos de predicción de una variable en función de otras.
 \begin{figure}[h]
     \centering
@@ -350,64 +351,23 @@ correlación positiva por lo que la regresión lineal puede ser un buen modelo p
 Podemos apreciar que la matriz de correlación de Spearman tiene gran similitud con la de Pearson, lo que indica que no tenemos relaciones monotónicas no lineales.
 
 
+\subsection{Regresión lineal}
 
-
-
-
-
-
-\section{Gráficos de pastel}
-A continuación visualizaremos la proporcion en la que aparecen las variables cualitativas respecto del total
-
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Cardiopatia.png}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Accidentes.png}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Casado.png}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Fumar.png}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Hipertension.png}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Sex.png}
-    \end{minipage}
-    \vfill
-    % \begin{minipage}{0.45\textwidth}
-    %     \centering
-    %     \includegraphics[width=0.3\textwidth]{img/grafico_pastel_Tipo_Residencia.png}
-    % \end{minipage}
-    % \begin{minipage}{0.45\textwidth}
-    %     \centering
-    %     \includegraphics[width=\textwidth]{img/grafico_pastel_Tipo_Trabajo.png.jpg}
-    % \end{minipage}
+    \includegraphics[width=0.9\textwidth]{img/matriz_regresion_lineal.png}
 \end{figure}
+
+entender cómo las variables del dataset se relacionan entre sí y para identificar posibles modelos predictivos basados en estas relaciones.
+
+
 
 \newpage
 
-
-\subsection{Indice de masa Corporal y nivel promedio de glucosa en sangre}
-Realizando la prueba de correlacion de Pearson a los valores de las variables IMC y Avg Glucosa de nuestras observaciones obtenemos un coeficiente de correlacion igual a 0.9371 lo cual indica que hay una relacion fuerte positiva.
-Un IMC elevado (sobrepeso u obesidad) puede aumentar los niveles de glucosa en sangre porque el cuerpo se vuelve menos eficiente al usar la insulina, 
-lo que lleva a una resistencia a la insulina, por lo que tienen un mayor riesgo de desarrollar diabetes tipo 2.
-Mantener un IMC dentro de un rango saludable ayuda a mantener la glucosa en niveles normales, reduciendo el riesgo de problemas de salud como la diabetes.
-
 \section{Modelos de Regresion logística:}
+
+\section{Modelo de la variable Accidentes}
+
 Para este modelo se tomaron como variables independientes: Sex, Fumar e Hipertension, y como
 variable dependiente Accidente.
 \\
@@ -478,5 +438,96 @@ Conclusión
 El modelo de regresión logística tiene una alta precisión y es capaz de predecir correctamente 
 la mayoría de los casos. Las variables Fumar y Hipertension tienen un impacto significativo en 
 la probabilidad de accidente, mientras que el Sex tiene un impacto menor.
+
+\section{Modelo de la variable hipertensión}
+
+Para este modelo se tomaron como variables independientes: Sex, Fumar y Edad, y como
+variable dependiente Hipertension.
+
+
+Accuracy: 0.825
+La precisión del modelo es del 82.5%, lo que indica que el modelo predice correctamente 
+el 82.5% de los casos en el conjunto de prueba. Esto es un buen indicador, aunque hay margen para mejorar.
+Confusion Matrix:
+[[22  5]
+ [ 2 11]]
+
+La matriz de confusión muestra:
+
+22 verdaderos negativos (TN): casos donde no hubo hipertensión y el modelo predijo correctamente.
+11 verdaderos positivos (TP): casos donde hubo hipertensión y el modelo predijo correctamente.
+5 falsos positivos (FP): casos donde no hubo hipertensión pero el modelo predijo que sí.
+2 falsos negativos (FN): casos donde hubo hipertensión pero el modelo predijo que no.
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.92      0.81      0.86        27
+           1       0.69      0.85      0.76        13
+
+    accuracy                           0.82        40
+   macro avg       0.80      0.83      0.81        40
+weighted avg       0.84      0.82      0.83        40
+
+Precisión (precision): La precisión para la clase 0 es 0.92 y para la clase 1 es 0.69. Esto significa que el modelo es más preciso en predecir la clase 0 que la clase 1.
+Exhaustividad (recall): La exhaustividad para la clase 0 es 0.81 y para la clase 1 es 0.85. Esto significa que el modelo identifica correctamente el 85% de los casos de la clase 1.
+F1-score: El F1-score es 0.86 para la clase 0 y 0.76 para la clase 1, lo que indica un buen equilibrio entre precisión y exhaustividad.
+
+Coeficientes del modelo:
+  Variable  Coeficiente
+0      Sex    -0.567660
+1    Fumar     3.493276
+2     Edad    -0.066406
+
+Los coeficientes indican la relación entre cada variable independiente y la probabilidad de hipertensión:
+
+Sex: Un coeficiente de -0.567660 sugiere que el sexo tiene un impacto negativo en la probabilidad de hipertensión.
+Fumar: Un coeficiente de 3.493276 indica que fumar aumenta significativamente la probabilidad de hipertensión.
+Edad: Un coeficiente de -0.066406 sugiere que la edad tiene un impacto negativo muy pequeño en la probabilidad de hipertensión.
+
+
+\newpage
+
+\section{Gráficos de pastel}
+A continuación visualizaremos la proporcion en la que aparecen las variables cualitativas respecto del total
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Cardiopatia.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Accidentes.png}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Casado.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Fumar.png}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Hipertension.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Sex.png}
+    \end{minipage}
+    \vfill
+    % \begin{minipage}{0.45\textwidth}
+    %     \centering
+    %     \includegraphics[width=0.3\textwidth]{img/grafico_pastel_Tipo_Residencia.png}
+    % \end{minipage}
+    % \begin{minipage}{0.45\textwidth}
+    %     \centering
+    %     \includegraphics[width=\textwidth]{img/grafico_pastel_Tipo_Trabajo.png.jpg}
+    % \end{minipage}
+\end{figure}
 
 \end{document}

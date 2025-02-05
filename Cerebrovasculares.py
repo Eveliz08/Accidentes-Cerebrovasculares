@@ -237,18 +237,10 @@ plt.savefig('./img/matriz_correlacion_spearman.png', dpi=300, bbox_inches='tight
 
 
 
-
-
-# # Crear un heatmap de la matriz de correlación
-# plt.figure(figsize=(10, 8))
-# sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black')
-# plt.title('Matriz de Correlación de las Variables')
-# plt.savefig('./img/matriz_correlacion.png', dpi=300, bbox_inches='tight')
-
 # # Gráficos de dispersión
 # sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], diag_kind='kde', plot_kws={'alpha':0.6, 's':80, 'edgecolor':'k'})
 # plt.savefig('./img/graficos_dispersion.png', dpi=300, bbox_inches='tight')
 
-# # Regresión lineal
-# sns.lmplot(x='Edad', y='IMC', data=df)
-# plt.savefig('./img/regresion_lineal.png', dpi=300, bbox_inches='tight')
+# Matriz de regresión lineal de las variables Edad, IMC y Avg_Glucosa
+sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], kind='reg', plot_kws={'line_kws':{'color':'red', 'lw':1}, 'scatter_kws': {'alpha':0.8, 's':40, 'color':'gray'}})
+plt.savefig('./img/matriz_regresion_lineal.png', dpi=300, bbox_inches='tight')
