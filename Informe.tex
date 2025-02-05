@@ -173,7 +173,7 @@ variables cuantitativas
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{img/Estadísticos_de_centro.png}
+    \includegraphics[width=0.9\textwidth]{img/Tablas/Estadísticos_de_centro.png}
 \end{figure}
 
 En la tabla se observa que los valores de la media (60.43) y la mediana (61) para la variable edad son muy cercanos, 
@@ -208,7 +208,7 @@ las variables cuantitativas.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{img/Estadísticos_de_dispersión.png}
+    \includegraphics[width=0.9\textwidth]{img/Tablas/Estadísticos_de_dispersión.png}
 \end{figure}
 
 Con el resultado del rango podemos tener una idea básica de la dispersión de los datos, pero sin considerar cómo están 
@@ -219,74 +219,142 @@ tan agrupados están los datos respecto a la mediana.
 Los resultados de los estadísticos de dispersión de la variable edad, junto con los estadísticos de centro, nos permiten 
 concluir que la muestra analizada presenta una distribución de edades bastante simétrica y concentrada alrededor de la mediana 
 de 61 años, con una variabilidad moderada. Los valores de la varianza, la desviación estándar y el coeficiente de variabilidad 
-son relativamente bajos. El rango intercuartílico, comparado con el rango total, sugiere que, aunque hay una diferencia de 20 
+son relativamente bajos, indicando que estamos en presencia de una distribución homogénea. El rango intercuartílico, comparado con el rango total, sugiere que, aunque hay una diferencia de 20 
 años entre el individuo más joven y el más viejo, la mayoría de los datos están concentrados en un rango de 5 años alrededor 
 de la mediana.
 
 En la variable Nivel Promedio de Glucosa, se observan altos valores en las medidas de dispersión, lo que indica una considerable 
-variabilidad en los niveles de glucosa en sangre entre los individuos estudiados. Esta variabilidad sugiere la presencia de 
+heterogeneidad en los niveles de glucosa en sangre entre los individuos estudiados. Esta variabilidad sugiere la presencia de 
 valores atípicos extremos, tanto en niveles bajos como muy elevados, lo que refleja una diversidad significativa en la composición 
 de la muestra.
 
-Respecto a la variable IMC, también podemos concluir que la muestra analizada presenta una amplia variabilidad, con la 
-presencia de individuos con bajo peso hasta con obesidad severa. El rango intercuartílico relativamente bajo en comparación 
+Respecto a la variable IMC, también podemos concluir que la muestra analizada presenta una amplia variabilidad en sus valores, un poco más moderada que la variable AvgGlucosa. Podemos encontrar observaciones 
+de individuos con bajo peso hasta con obesidad severa. El rango intercuartílico relativamente bajo en comparación 
 con el rango total sugiere que, aunque hay valores extremos, la mayoría de los datos están concentrados alrededor de la 
 mediana.
 
 
+
+
 \newpage
 
 
-\section{Histogramas}
-A continuación, se presentan los histogramas de las variables cuantitativas de nuestro estudio, los cuales permiten visualizar la 
-distribución de los datos, su frecuencia y rango. Esto facilitará la detección de valores atípicos, la identificación de la forma 
-de la distribución y una mejor comprensión de la naturaleza de los datos.
+
+\section{Análisis de la distribución de las variables cuantitativas.}
+A continuación visualizaremos la distribución de las variables Edad, IMC, AvgGlucosa mediante diferentes gráficos como histogramas y boxplot.
+Esto facilitará la detección de valores atípicos, la identificación de la forma de la distribución y una mejor comprensión de la naturaleza 
+de los datos. También realizaremos test de normalidad
+
+
+\section{Distribución de la variable Edad}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{img/Histograma_Avg_Glucosa.png}
+    \includegraphics[width=1\textwidth]{img/Histogramas/Histograma_Edad.png}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{img/Histograma_Edad.png}
+    \includegraphics[width=1\textwidth]{img/Boxplot/Boxplt_Edad.png}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{img/Histograma_IMC.png}
+    \includegraphics[width=1\textwidth]{img/Tablas/test_normalidad_Edad.png}
 \end{figure}
 
-El histograma de la variable Edad visualiza las conclusiones obtenidas a partir de los estadísticos de centro y 
+
+El histograma y el boxplot de la variable Edad visualiza las conclusiones obtenidas a partir de los estadísticos de centro y 
 dispersión. La distribución de esta variable es bastante simétrica, con la mayoría de los individuos concentrados alrededor 
 de la media y con una ausencia de valores atípicos significativos. La mayor frecuencia de edades se encuentra entre los 58 y 63 años. Esta distribución uniforme y centrada alrededor de la media 
-facilita el análisis y la interpretación de los datos, ya que reduce la influencia de valores extremos.
+facilita el análisis y la interpretación de los datos, ya que reduce la influencia de valores extremos. Podemos concluir con los resultados de los test de normalidad.
+
+
+
+
+
+\section{Distribución de la variable AvgGlucosa}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Histogramas/Histograma_Avg_Glucosa.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Boxplot/Boxplt_Avg_Glucosa.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Tablas/test_normalidad_Avg_Glucosa.png}
+\end{figure}
+
+En los gráficos de la variable Nivel Promedio de Glucosa en Sangre, se aprecia una concentración de observaciones en el intervalo de 60 a 100, podemos observar en el boxplot como la caja se encuentra inquinada a la parte izquierda del plano.
+Es evidente la asimetría en esta distribución con notables valores atípicos extremos.
+
+
+
+\section{Distribución de la variable IMC}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Histogramas/Histograma_IMC.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Boxplot/Boxplt_IMC.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Tablas/test_normalidad_IMC.png}
+\end{figure}
+
+
+En estos gráficos de la variable Índice de Masa Corporal (IMC) se observan en el intervalo de 40 a 50 kg/m\^2 valores extremos en 
+la variable que distorsionan la uniformidad de su distribución corroborando los valores de las medidas de dispersión de esta variable. 
+También se observa que hay un grupo grande de individuos con un índice de masa corporal entre los 25 y 30 kg/m\^2. Con los resultados 
+de los test de normalidad concluimos que esta variable no sigue una distribución normal.
+
+
+
+
+
+
+
+
 
 \newpage
 
-\section{Gráficos Boxplot}
-Los gráficos Boxplot permiten ilustrar la distribución de los datos a través de sus cuartiles. Estos gráficos son útiles para identificar la dispersión, la simetría, las medidas de tendencia central, así como de dispersión y la presencia de valores atípicos en los datos.
 
-\begin{figure}[H]
+\section{Relación entre variables}
+
+\section{Matrices de correlacion}
+Para visualizar de manera clara la relación entre todas las variables del dataset, utilizamos matrices de correlación. Estas matrices muestran un coeficiente que varía entre -1 y 1 (1: Correlación positiva perfecta, -1: Correlación negativa perfecta, 0: No hay correlación lineal.), el cual mide la fuerza y la dirección de la relación entre las variables. Este análisis es fundamental para determinar modelos de predicción de una variable en función de otras.
+\begin{figure}[h]
     \centering
-    \includegraphics[width=1\textwidth]{img/Boxplt_Avg_Glucosa.png}
+    \includegraphics[width=0.9\textwidth]{img/matriz_correlacion_pearson.png}
 \end{figure}
 
-\begin{figure}[H]
+El coeficiente de correlación de Pearson mide la relación lineal entre dos variables. En esta matriz, 
+observamos que no existen fuertes correlaciones lineales negativas entre las variables. Muchas de ellas 
+no presentan correlación significativa, mientras que una cantidad considerable muestra una notable 
+correlación positiva por lo que la regresión lineal puede ser un buen modelo para el análisis predictivo de estas últimas.
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=1\textwidth]{img/Boxplt_Edad.png}
+    \includegraphics[width=0.9\textwidth]{img/matriz_correlacion_spearman.png}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{img/Boxplt_IMC.png}
-\end{figure}
+Podemos apreciar que la matriz de correlación de Spearman tiene gran similitud con la de Pearson, lo que indica que no tenemos relaciones monotónicas no lineales.
 
-Se observan valores extremos en la variable Índice de Masa Corporal (IMC) que distorsionan la uniformidad de su distribución. 
-En el gráfico de la variable Nivel Promedio de Glucosa en Sangre, se aprecia una concentración de observaciones en el intervalo de 60 a 100, 
-así como una evidente asimetría en la distribución.
 
-\newpage
+
+
+
+
+
 
 \section{Gráficos de pastel}
 A continuación visualizaremos la proporcion en la que aparecen las variables cualitativas respecto del total
@@ -295,29 +363,29 @@ A continuación visualizaremos la proporcion en la que aparecen las variables cu
     \centering
     \begin{minipage}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Cardiopatia.png}
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Cardiopatia.png}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Accidentes.png}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Casado.png}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Fumar.png}
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Accidentes.png}
     \end{minipage}
     \vfill
     \begin{minipage}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Hipertension.png}
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Casado.png}
     \end{minipage}
     \begin{minipage}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.9\textwidth]{img/grafico_pastel_Sex.png}
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Fumar.png}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Hipertension.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Sex.png}
     \end{minipage}
     \vfill
     % \begin{minipage}{0.45\textwidth}
@@ -332,12 +400,6 @@ A continuación visualizaremos la proporcion en la que aparecen las variables cu
 
 \newpage
 
-\section{Correlación entre variables}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{img/matriz_correlacion.png}
-\end{figure}
 
 \subsection{Indice de masa Corporal y nivel promedio de glucosa en sangre}
 Realizando la prueba de correlacion de Pearson a los valores de las variables IMC y Avg Glucosa de nuestras observaciones obtenemos un coeficiente de correlacion igual a 0.9371 lo cual indica que hay una relacion fuerte positiva.

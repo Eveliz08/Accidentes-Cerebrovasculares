@@ -44,7 +44,7 @@ for key, cell in tablaEstCentro_table.get_celld().items():
     if key[0] == 0 or key[1] == -1:
         cell.set_facecolor('lightgray')
 
-plt.savefig('./img/Estadísticos_de_centro.png', dpi=300, bbox_inches='tight')
+plt.savefig('./img/Tablas/Estadísticos_de_centro.png', dpi=300, bbox_inches='tight')
 
 
 # Guarda la tabla de los estadísticos de dispersión como imágenes
@@ -61,7 +61,7 @@ for key, cell in tablaEstDispersion_table.get_celld().items():
     if key[0] == 0 or key[1] == -1:
         cell.set_facecolor('lightgray')
 
-plt.savefig('./img/Estadísticos_de_dispersión.png', dpi=300, bbox_inches='tight')
+plt.savefig('./img/Tablas/Estadísticos_de_dispersión.png', dpi=300, bbox_inches='tight')
 
 
 #Crear gráficos pastel de las variables cualitativas
@@ -76,7 +76,7 @@ def crear_grafico_pastel(variable, label1, label2):
     plt.pie(tabla['Frecuencia'], labels=[label1, label2], autopct='%1.1f%%', startangle=90, colors=colors, wedgeprops={'edgecolor': 'black'})
     plt.title("Gráfico de Pastel de la variable " + variable)
 
-    plt.savefig("./img/grafico_pastel_" + variable + ".png", dpi = 300)
+    plt.savefig("./img/GráficosPastel/grafico_pastel_" + variable + ".png", dpi = 300)
 
 # El primer parametro es el nombre de la variable del dataset, segundo la variable 
 # categórica que se codifica con 0 y tercero la que se codifica con 1.
@@ -130,7 +130,7 @@ def Crear_Histograma (variable, color_barras):
     plt.legend()
     plt.grid(axis='y', color='lightgray', linestyle='--', alpha=0.75)
 
-    plt.savefig("./img/Histograma_" + variable + ".png", dpi = 300)
+    plt.savefig("./img/Histogramas/Histograma_" + variable + ".png", dpi = 300)
 
 
 Crear_Histograma('Edad', 'lightgreen' )
@@ -152,7 +152,7 @@ def Crear_Boxplot (variable, color):
     y_values = np.random.uniform(1 - box_width / 2, 1 + box_width / 2, size=len(df[variable]))
     plt.scatter(df[variable], y_values, alpha=0.6, color=color, zorder=2)
 
-    plt.savefig("./img/Boxplt_" + variable + ".png", dpi = 300)
+    plt.savefig("./img/Boxplot/Boxplt_" + variable + ".png", dpi = 300)
 
 Crear_Boxplot('Edad', 'blue')
 Crear_Boxplot('IMC', 'red')
@@ -160,101 +160,95 @@ Crear_Boxplot('Avg_Glucosa', 'yellow')
 
 
 
+def test_normalidad_Kolmogorov_Smirnov(variable, nivel_significancia=0.05):
+    # Ajustar la media y desviación estándar de los datos a una distribución normal
+    mean, std = df[variable].mean(), df[variable].std()
+
+    # Prueba de K-S para la distribución normal
+    stat, p_value = kstest(df[variable], 'norm', args=(mean, std))
+    conclusion = 'Normal' if p_value > nivel_significancia else 'No Normal'
+    
+    return [stat, p_value, conclusion]
+
+def test_normalidad_Shapiro_Wilk(variable, nivel_significancia=0.05):
+    stat, p_value = shapiro(df[variable])
+    conclusion = 'Normal' if p_value > nivel_significancia else 'No Normal'
+    
+    return [stat, p_value, conclusion]
+
+def test_Anderson_Darling(variable):
+    result = anderson(df[variable])
+    stat = result.statistic
+    p_value = None  # Anderson-Darling no proporciona un p-valor directamente
+    conclusion = 'Normal' if all(stat < cv for cv in result.critical_values) else 'No Normal'
+    
+    return [stat, p_value, conclusion]
+
+def crear_tabla_test_normalidad(variable):
+    pruebas = ['Kolmogorov Smirnov', 'Shapiro_Wilk', 'Anderson Darling']
+    columnas = ['Estadístico', 'p-valor', 'Conclusión']
+    tabla = pd.DataFrame(columns= columnas, index= pruebas)
+    # Prueba de Kolmogorov-Smirnov
+    stat, p_value, conclusion = test_normalidad_Kolmogorov_Smirnov(variable)
+    tabla.loc['Kolmogorov Smirnov'] = [stat, p_value, conclusion]
+
+    # Prueba de Shapiro-Wilk
+    stat, p_value, conclusion = test_normalidad_Shapiro_Wilk(variable)
+    tabla.loc['Shapiro_Wilk'] = [stat, p_value, conclusion]
+
+    # Prueba de Anderson-Darling
+    stat, p_value, conclusion = test_Anderson_Darling(variable)
+    tabla.loc['Anderson Darling'] = [stat, p_value, conclusion]
+
+    # Guardar la tabla de pruebas de normalidad como imagen
+    fig, ax = plt.subplots(figsize=(10, 2))
+    ax.axis('tight')
+    ax.axis('off')
+    tabla_test_normalidad = ax.table(cellText=tabla.values, colLabels=tabla.columns, rowLabels=tabla.index, cellLoc='center', loc='center')
+    tabla_test_normalidad.auto_set_font_size(False)
+    tabla_test_normalidad.set_fontsize(10)
+    tabla_test_normalidad.scale(1.2, 1.5)
+
+    # Se le da un color gris de fondo a la cabecera de las filas y las columnas
+    for key, cell in tabla_test_normalidad.get_celld().items():
+        if key[0] == 0 or key[1] == -1:
+            cell.set_facecolor('lightgray')
+
+    plt.savefig('./img/Tablas/test_normalidad_' + variable + '.png', dpi=300, bbox_inches='tight')
 
 
-
-
-
-
-#Pruebas de normalidad para evaluar si las variables cuantitativas siguen una distribucion normal
-print('Variable Edad')
-#Prueba para la variable Edad
-mean = df['Edad'].mean()
-std = df['Edad'].std()
-
-# Prueba de Kolmogorov-Smirnov para normalidad
-stat, p_value = kstest(df['Edad'], 'norm', args=(mean, std))
-print(f'Kolmogorov-Smirnov test - Estadístico: {stat:.4f}, p-valor: {p_value:.4f}')
-
-# Prueba de Shapiro-Wilk para normalidad
-stat, p_value = shapiro(df['Edad'])
-print(f'Shapiro-Wilk test - Estadístico: {stat:.4f}, p-valor: {p_value:.4f}')
-
-# Prueba de Anderson-Darling para normalidad
-result = anderson(df['Edad'])
-print(f'Anderson-Darling test - Estadístico: {result.statistic:.4f}')
-for i, critical in enumerate(result.critical_values):
-    signif_level = result.significance_level[i]
-    print(f'Nivel de significancia {signif_level}%: Valor crítico {critical}')
-    if result.statistic < critical:
-        print(f"Los datos parecen seguir una distribución normal al {signif_level}% de nivel de significancia.")
-    else:
-        print(f"Los datos no siguen una distribución normal al {signif_level}% de nivel de significancia.")
-        
-
-print()
-print('Variable Avg_Glucosa')
-#Prueba para la variable Avg_Glucosa
-mean = df['Avg_Glucosa'].mean()
-std = df['Avg_Glucosa'].std()
-
-# Prueba de Kolmogorov-Smirnov para normalidad
-stat, p_value = kstest(df['Avg_Glucosa'], 'norm', args=(mean, std))
-print(f'Kolmogorov-Smirnov test - Estadístico: {stat:.4f}, p-valor: {p_value:.4f}')
-
-# Prueba de Shapiro-Wilk para normalidad
-stat, p_value = shapiro(df['Avg_Glucosa'])
-print(f'Shapiro-Wilk test - Estadístico: {stat:.4f}, p-valor: {p_value:.4f}')
-
-# Prueba de Anderson-Darling para normalidad
-result = anderson(df['Avg_Glucosa'])
-print(f'Anderson-Darling test - Estadístico: {result.statistic:.4f}')
-for i, critical in enumerate(result.critical_values):
-    signif_level = result.significance_level[i]
-    print(f'Nivel de significancia {signif_level}%: Valor crítico {critical}')
-    if result.statistic < critical:
-        print(f"Los datos parecen seguir una distribución normal al {signif_level}% de nivel de significancia.")
-    else:
-        print(f"Los datos no siguen una distribución normal al {signif_level}% de nivel de significancia.")
-
-
-
-print()
-print('Variable IMC')
-#Prueba para la variable IMC
-mean = df['IMC'].mean()
-std = df['IMC'].std()
-
-# Prueba de Kolmogorov-Smirnov para normalidad
-stat, p_value = kstest(df['IMC'], 'norm', args=(mean, std))
-print(f'Kolmogorov-Smirnov test - Estadístico: {stat:.4f}, p-valor: {p_value:.4f}')
-
-# Prueba de Shapiro-Wilk para normalidad
-stat, p_value = shapiro(df['IMC'])
-print(f'Shapiro-Wilk test - Estadístico: {stat:.4f}, p-valor: {p_value:.4f}')
-
-# Prueba de Anderson-Darling para normalidad
-result = anderson(df['IMC'])
-print(f'Anderson-Darling test - Estadístico: {result.statistic:.4f}')
-for i, critical in enumerate(result.critical_values):
-    signif_level = result.significance_level[i]
-    print(f'Nivel de significancia {signif_level}%: Valor crítico {critical}')
-    if result.statistic < critical:
-        print(f"Los datos parecen seguir una distribución normal al {signif_level}% de nivel de significancia.")
-    else:
-        print(f"Los datos no siguen una distribución normal al {signif_level}% de nivel de significancia.")
-
+crear_tabla_test_normalidad('Edad')
+crear_tabla_test_normalidad('Avg_Glucosa')
+crear_tabla_test_normalidad('IMC')
 
 # Crear una matriz de correlación de las variables del DataFrame
-correlation_matrix = df.corr()
-
-# Crear un heatmap de la matriz de correlación
+correlation_matrix_pearson = df.corr(method='pearson')
 plt.figure(figsize=(10, 8))
-sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black')
-plt.title('Matriz de Correlación de las Variables')
-plt.savefig('./img/matriz_correlacion.png', dpi=300, bbox_inches='tight')
+sns.heatmap(correlation_matrix_pearson, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black',  vmin=-1, vmax=1)
+plt.title('Matriz de Correlación de Pearson')
+plt.savefig('./img/matriz_correlacion_pearson.png', dpi=300, bbox_inches='tight')
 
-# Crear gráficos de dispersión para todas las combinaciones posibles de las variables
-variables = ['Edad', 'IMC', 'Avg_Glucosa']
-sns.pairplot(df[variables], diag_kind='kde', plot_kws={'alpha':0.6, 's':80, 'edgecolor':'k'})
-plt.savefig('./img/graficos_dispersion.png', dpi=300, bbox_inches='tight')
+# Matriz de correlación de Spearman
+correlation_matrix_spearman = df.corr(method='spearman')
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix_spearman, annot=True, cmap='YlGn', linewidths=0.5, linecolor='black', vmin=-1, vmax=1)
+plt.title('Matriz de Correlación de Spearman')
+plt.savefig('./img/matriz_correlacion_spearman.png', dpi=300, bbox_inches='tight')
+
+
+
+
+
+# # Crear un heatmap de la matriz de correlación
+# plt.figure(figsize=(10, 8))
+# sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black')
+# plt.title('Matriz de Correlación de las Variables')
+# plt.savefig('./img/matriz_correlacion.png', dpi=300, bbox_inches='tight')
+
+# # Gráficos de dispersión
+# sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], diag_kind='kde', plot_kws={'alpha':0.6, 's':80, 'edgecolor':'k'})
+# plt.savefig('./img/graficos_dispersion.png', dpi=300, bbox_inches='tight')
+
+# # Regresión lineal
+# sns.lmplot(x='Edad', y='IMC', data=df)
+# plt.savefig('./img/regresion_lineal.png', dpi=300, bbox_inches='tight')
