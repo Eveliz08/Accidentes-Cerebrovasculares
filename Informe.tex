@@ -53,7 +53,7 @@ framerule=1pt
 \vspace {1cm}
 \text{\huge Dataset: Accidentes cerebrovascular}\\
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{img/Presentación.jpg}
 \end{figure}
@@ -70,7 +70,7 @@ framerule=1pt
 \text{\Large Facultad de Matemática y Computación, Universidad de La Habana}\\
 \text{Curso 2024-2025}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.2\textwidth]{img/MATCOM.jpg}
 \end{figure}
@@ -171,7 +171,7 @@ para entender la distribución de los datos y detectar posibles valores atípico
 siguiente tabla muestra el resultado de calcular cada uno de ellos en cada una de las
 variables cuantitativas
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{img/Tablas/Estadísticos_de_centro.png}
 \end{figure}
@@ -206,7 +206,7 @@ Los estadísticos de variabilidad, también conocidos como medidas de dispersió
 indicadores que describen cuán dispersos o agrupados están los datos del conjunto. La siguiente tabla muestra el resultado de calcular cada uno de ellos en cada una de
 las variables cuantitativas.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{img/Tablas/Estadísticos_de_dispersión.png}
 \end{figure}
@@ -333,7 +333,7 @@ de los test de normalidad concluimos que esta variable no sigue una distribució
 
 \subsection{Matrices de correlación}
 Para visualizar de manera clara la relación entre todas las variables del dataset, utilizamos matrices de correlación. Estas muestran un coeficiente que varía entre -1 y 1 (1: Correlación positiva perfecta, -1: Correlación negativa perfecta, 0: No hay correlación lineal.), el cual mide la fuerza y la dirección de la relación entre las variables. Este análisis es fundamental para determinar modelos de predicción de una variable en función de otras.
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{img/matriz_correlacion_pearson.png}
 \end{figure}
@@ -343,7 +343,7 @@ observamos que no existen fuertes correlaciones lineales negativas entre las var
 no presentan correlación significativa, mientras que una cantidad considerable muestra una notable 
 correlación positiva por lo que la regresión lineal puede ser un buen modelo para el análisis predictivo de estas últimas.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{img/matriz_correlacion_spearman.png}
 \end{figure}
@@ -353,14 +353,18 @@ Podemos apreciar que la matriz de correlación de Spearman tiene gran similitud 
 
 \subsection{Regresión lineal}
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{img/matriz_regresion_lineal.png}
 \end{figure}
 
-entender cómo las variables del dataset se relacionan entre sí y para identificar posibles modelos predictivos basados en estas relaciones.
+En el gráfico de dispersión de las variables IMC y AvgGlucosa, se observa una relación positiva, es decir, a medida que una variable aumenta, la otra también tiende a hacerlo. Este hallazgo es coherente con la literatura médica, que sugiere que un índice de masa corporal (IMC) elevado, asociado con sobrepeso u obesidad, puede influir en los niveles de glucosa en sangre.
 
+El mecanismo subyacente a esta relación radica en la resistencia a la insulina. Las personas con un IMC alto tienen una mayor probabilidad de desarrollar resistencia a la insulina, una condición en la cual las células del cuerpo no responden adecuadamente a la insulina. Como resultado, la glucosa no se absorbe eficientemente y se acumula en la sangre, elevando los niveles de glucosa.
 
+Además, los hábitos de vida asociados con un IMC elevado, como una dieta alta en calorías y baja en nutrientes, y poca actividad física, también contribuyen a niveles elevados de glucosa en sangre. Estos factores no solo promueven el aumento de peso, sino que también incrementan el riesgo de desarrollar diabetes tipo 2.
+
+En la relación de las variables Edad y AvgGlucosa, y Edad e IMC podemos ver que la la línea de regresión es casi horizontal. Esto indica poca o ninguna relación lineal entre las variables.
 
 \newpage
 
@@ -488,50 +492,29 @@ Edad: Un coeficiente de -0.066406 sugiere que la edad tiene un impacto negativo 
 
 \newpage
 
-\section{Relación entre viriables categóricas}
-\subsection{Tablas de contigencia}
-\subsection{Pruebaa de Chi-Cuadrado de Independencia}
 
-\section{Gráficos de pastel}
-A continuación visualizaremos la proporcion en la que aparecen las variables cualitativas respecto del total
+\section{Relación entre variables categóricas}
+\subsection{Tablas de contigencia}
 
 \begin{figure}[H]
     \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Cardiopatia.png}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Accidentes.png}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Casado.png}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Fumar.png}
-    \end{minipage}
-    \vfill
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Hipertension.png}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Sex.png}
-    \end{minipage}
-    \vfill
-    % \begin{minipage}{0.45\textwidth}
-    %     \centering
-    %     \includegraphics[width=0.3\textwidth]{img/grafico_pastel_Tipo_Residencia.png}
-    % \end{minipage}
-    % \begin{minipage}{0.45\textwidth}
-    %     \centering
-    %     \includegraphics[width=\textwidth]{img/grafico_pastel_Tipo_Trabajo.png.jpg}
-    % \end{minipage}
+    \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Cardiopatia.png} \hspace{0.5cm}
+    \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Casado.png} \vspace{0.5cm}
+    \vspace{0.3cm}
+    \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Fumar.png} \hspace{0.5cm}
+    \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Hipertension.png}
 \end{figure}
+
+
+\begin{figure}[H]
+    \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Sex.png} \hspace{0.5cm}
+    \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Tipo_Residencia.png} \vspace{0.5cm}
+    \vspace{0.3cm}
+    \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Tipo_Trabajo.png}
+\end{figure}
+
+\subsection{Pruebaa de Chi-Cuadrado de Independencia}
+
+\section{Pruebas de hipótesis de dos poblaciones}
 
 \end{document}

@@ -211,7 +211,7 @@ def crear_tabla_test_normalidad(variable):
     tabla_test_normalidad = ax.table(cellText=tabla.values, colLabels=tabla.columns, rowLabels=tabla.index, cellLoc='center', loc='center')
     tabla_test_normalidad.auto_set_font_size(False)
     tabla_test_normalidad.set_fontsize(10)
-    tabla_test_normalidad.scale(1.2, 2)
+    tabla_test_normalidad.scale(1.2, 2.5)
 
     # Se le da un color gris de fondo a la cabecera de las filas y las columnas
     for key, cell in tabla_test_normalidad.get_celld().items():
@@ -245,29 +245,29 @@ plt.savefig('./img/matriz_correlacion_spearman.png', dpi=300, bbox_inches='tight
 sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], kind='reg', plot_kws={'line_kws':{'color':'red', 'lw':1}, 'scatter_kws': {'alpha':0.8, 's':40, 'color':'gray'}})
 plt.savefig('./img/matriz_regresion_lineal.png', dpi=300, bbox_inches='tight')
 
-variables_discretas = ['Sex', 'Hipertension', 'Cardiopatia', 'Casado', 'Tipo_Trabajo', 'Tipo_Residencia', 'Fumar', 'Accidentes']
+variables_discretas = ['Sex', 'Hipertension', 'Cardiopatia', 'Casado', 'Tipo_Trabajo', 'Tipo_Residencia', 'Fumar']
 
-duplas = combinations(variables_discretas, 2)
+# duplas = combinations(variables_discretas, 2)
 
-for pareja in duplas:
-    tabla_contingencia = pd.crosstab(df[pareja[0]], df[pareja[1]])
+for pareja in variables_discretas:
+    tabla_contingencia = pd.crosstab(df['Accidentes'], df[pareja])
     
     # # Crear un heatmap de la tabla de contingencia
-    # plt.figure(figsize=(10, 8))
-    # sns.heatmap(tabla_contingencia, annot=True, fmt='d', cmap='YlGnBu', linewidths=.5)
-    # plt.title(f'Tabla de Contingencia - Heatmap ({pareja[0]} vs {pareja[1]})')
-    # plt.xlabel(pareja[1])
-    # plt.ylabel(pareja[0])
-    # plt.savefig(f'./img/Tablas/heatmap_contingencia_{pareja[0]}_{pareja[1]}.png', dpi=300, bbox_inches='tight')
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(tabla_contingencia, annot=True, fmt='d', cmap='YlGnBu', linewidths=.5)
+    plt.title(f'Tabla de Contingencia - Heatmap (Accidentes Cerebrovasculares vs {pareja})')
+    plt.xlabel('Accidentes Cerebrovasculares')
+    plt.ylabel(pareja)
+    plt.savefig(f'./img/Heatmap/Accidentes_{pareja}.png', dpi=300, bbox_inches='tight')
     
     
     # Crear un gráfico de barras apiladas de la tabla de contingencia
     tabla_contingencia.plot(kind='bar', stacked=True, figsize=(10, 8))
-    plt.title(f'Tabla de Contingencia - Gráfico de Barras Apiladas ({pareja[0]} vs {pareja[1]})')
-    plt.xlabel(pareja[0])
+    plt.title(f'Tabla de Contingencia - Gráfico de Barras Apiladas (Accidentes Cerebrovasculares vs {pareja})')
+    plt.xlabel('Accidentes Cerebrovasculares')
     plt.ylabel('Frecuencia')
-    plt.legend(title=pareja[1])
-    plt.savefig(f'./img/Barplot/{pareja[0]}_{pareja[1]}.png', dpi=300, bbox_inches='tight')
+    plt.legend(title=pareja)
+    plt.savefig(f'./img/Barplot/Accidentes_{pareja}.png', dpi=300, bbox_inches='tight')
 
 
 plt.close()
@@ -279,15 +279,15 @@ def CrearCollage(ruta, nombre):
     barplot_images = [os.path.join(ruta, img) for img in os.listdir(ruta) if img.endswith('.png')]
 
     # Tamaño del collage
-    collage_width = 1600
+    collage_width = 1000
     collage_height = 2000
 
     # Crear una nueva imagen en blanco para el collage
     collage = Image.new('RGB', (collage_width, collage_height), (255, 255, 255))
 
     # Tamaño de cada imagen en el collage
-    image_width = collage_width // 4
-    image_height = collage_height // 7
+    image_width = collage_width // 2
+    image_height = collage_height // 4
 
     # Posición inicial
     x_offset = 0
@@ -308,3 +308,5 @@ def CrearCollage(ruta, nombre):
 
 
 CrearCollage('./img/Barplot/', 'barplot')
+
+CrearCollage('./img/Heatmap/', 'heatmap')
