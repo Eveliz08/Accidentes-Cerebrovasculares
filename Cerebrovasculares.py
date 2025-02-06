@@ -10,6 +10,7 @@ from itertools import combinations
 import plotly.express as px
 from PIL import Image
 import os
+from scipy.stats import chi2_contingency
 
 # Crear un DataFrame de pandas
 df = pd.read_csv('Cerebrovasculares.csv')
@@ -307,6 +308,47 @@ def CrearCollage(ruta, nombre):
     collage.save(ruta +'/Collage/collage_' + nombre + '.png')
 
 
-CrearCollage('./img/Barplot/', 'barplot')
+# CrearCollage('./img/Barplot/', 'barplot')
+# CrearCollage('./img/Heatmap/', 'heatmap')\
 
-CrearCollage('./img/Heatmap/', 'heatmap')
+variables_discretas = ['Sex', 'Hipertension', 'Cardiopatia', 'Casado', 'Tipo_Trabajo', 'Tipo_Residencia', 'Fumar', 'Accidentes']
+
+def prueba_chi_cuadrado(var1, var2):
+    tabla_contingencia = pd.crosstab(df[var1], df[var2])
+    stat, p_value, dof, expected = chi2_contingency(tabla_contingencia)
+    conclusion = 'Independientes' if p_value > 0.05 else 'Dependientes'
+    return [stat, p_value, dof, conclusion]
+
+def crear_tabla_chi_cuadrado(variables):
+    combinaciones = list(combinations(variables, 2))
+    columnas = ['Variable 1', 'Variable 2', 'Estadístico', 'p-valor', 'Grados de libertad', 'Conclusión']
+    tabla = pd.DataFrame(columns=columnas)
+    
+    for var1, var2 in combinaciones:
+        stat, p_value, dof, conclusion = prueba_chi_cuadrado(var1, var2)
+        tabla = pd.concat([tabla, pd.DataFrame([{
+            'Variable 1': var1,
+            'Variable 2': var2,
+            'Estadístico': stat,
+            'p-valor': p_value,
+            'Grados de libertad': dof,
+            'Conclusión': conclusion
+        }])], ignore_index=True)
+    
+    # Guardar la tabla de pruebas de chi cuadrado como imagen
+    fig, ax = plt.subplots(figsize=(12, len(combinaciones) * 0.5))
+    ax.axis('tight')
+    ax.axis('off')
+    tabla_chi_cuadrado = ax.table(cellText=tabla.values, colLabels=tabla.columns, cellLoc='center', loc='center')
+    tabla_chi_cuadrado.auto_set_font_size(False)
+    tabla_chi_cuadrado.set_fontsize(10)
+    tabla_chi_cuadrado.scale(1.2, 1.2)
+
+    # Se le da un color gris de fondo a la cabecera de las filas y las columnas
+    for key, cell in tabla_chi_cuadrado.get_celld().items():
+        if key[0] == 0 or key[1] == -1:
+            cell.set_facecolor('lightgray')
+
+    plt.savefig('./img/Tablas/test_chi_cuadrado.png', dpi=300, bbox_inches='tight')
+
+crear_tabla_chi_cuadrado(variables_discretas)

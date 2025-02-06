@@ -494,7 +494,7 @@ Edad: Un coeficiente de -0.066406 sugiere que la edad tiene un impacto negativo 
 
 
 \section{Relación entre variables categóricas}
-\subsection{Tablas de contigencia}
+\subsection{Heatmaps de las tablas de contigencia}
 
 \begin{figure}[H]
     \centering
@@ -513,8 +513,19 @@ Edad: Un coeficiente de -0.066406 sugiere que la edad tiene un impacto negativo 
     \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Tipo_Trabajo.png}
 \end{figure}
 
-\subsection{Pruebaa de Chi-Cuadrado de Independencia}
+\subsection{Prueba de Chi-Cuadrado de Independencia}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/Tablas/test_chi_cuadrado.png}
+\end{figure}
+El estadístico de Chi-Cuadrado mide la discrepancia entre las frecuencias observadas y las frecuencias esperadas. Un valor alto del estadístico de Chi-Cuadrado indica una mayor discrepancia entre las frecuencias observadas y esperadas, sugiriendo que las variables pueden no ser independientes. El p-valor es la probabilidad de obtener un valor del estadístico de Chi-Cuadrado al menos tan extremo como el observado, bajo la hipótesis nula de independencia. Se utiliza para determinar la significancia estadística del resultado.
+
+Un p-valor bajo (generalmente < 0.05) indica que hay suficiente evidencia para rechazar la hipótesis nula, sugiriendo que existe una asociación significativa entre las variables. Por otro lado, un p-valor alto (>= 0.05) indica que no hay suficiente evidencia para rechazar la hipótesis nula, sugiriendo que no existe una asociación significativa entre las variables. Los grados de libertad influyen en el valor crítico de la distribución Chi-Cuadrado, que se utiliza para comparar con el estadístico de Chi-Cuadrado calculado.
+
+% Es importante asegurarse de que las condiciones para aplicar la prueba de Chi-Cuadrado se cumplan, como tener un tamaño de muestra suficientemente grande y que las frecuencias esperadas en cada celda de la tabla de contingencia sean adecuadas (generalmente al menos 5). Si estas condiciones no se cumplen, los resultados de la prueba pueden no ser fiables.
+
+\newpage
 \section{Pruebas de hipótesis de dos poblaciones}
 
 \end{document}
