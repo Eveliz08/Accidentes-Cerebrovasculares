@@ -179,7 +179,7 @@ variables cuantitativas
 En la tabla se observa que los valores de la media (60.43) y la mediana (61) para la variable edad son muy cercanos, 
 así como los valores del primer cuartil (58) y del tercer cuartil (63). Esto indica que la muestra está compuesta 
 principalmente por personas de edad avanzada, entre 58 y 63 años, con una distribución de edades centrada alrededor 
-de los 61 años. Esto sugiere una muestra relativamente homogénea en términos de edad, con una posible ausencia de 
+de los 61 años. Esto sugiere una muestra homogénea en términos de edad, con una posible ausencia de 
 valores atípicos extremos.
 
 El nivel promedio de glucosa en sangre en ayunas de una persona saludable se encuentra entre 70 y 100 mg/dL 
@@ -243,10 +243,10 @@ mediana.
 \section{Análisis de la distribución de las variables cuantitativas.}
 A continuación visualizaremos la distribución de las variables Edad, IMC, AvgGlucosa mediante diferentes gráficos como histogramas y boxplot.
 Esto facilitará la detección de valores atípicos, la identificación de la forma de la distribución y una mejor comprensión de la naturaleza 
-de los datos. También realizaremos test de normalidad
+de los datos. Concluiremos con la realización de test de normalidad sobre estas variables.
 
 
-\section{Distribución de la variable Edad}
+\subsection{Distribución de la variable Edad}
 \vspace {-0.8cm}
 \begin{figure}[H]
     \centering
@@ -274,7 +274,7 @@ facilita el análisis y la interpretación de los datos, ya que reduce la influe
 
 
 
-\section{Distribución de la variable AvgGlucosa}
+\subsection{Distribución de la variable AvgGlucosa}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{img/Histogramas/Histograma_Avg_Glucosa.png}
@@ -290,12 +290,12 @@ facilita el análisis y la interpretación de los datos, ya que reduce la influe
     \includegraphics[width=1\textwidth]{img/Tablas/test_normalidad_Avg_Glucosa.png}
 \end{figure}
 
-En los gráficos de la variable Nivel Promedio de Glucosa en Sangre, se aprecia una concentración de observaciones en el intervalo de 60 a 100, podemos observar en el boxplot como la caja se encuentra inquinada a la parte izquierda del plano.
+En los gráficos de la variable Nivel Promedio de Glucosa en Sangre, se aprecia una concentración de observaciones en el intervalo de 60 a 100, podemos observar en el boxplot como la caja se encuentra inclinada a la parte izquierda del plano.
 Es evidente la asimetría en esta distribución con notables valores atípicos extremos.
 
 
 
-\section{Distribución de la variable IMC}
+\subsection{Distribución de la variable IMC}
 
 \begin{figure}[H]
     \centering
@@ -329,10 +329,10 @@ de los test de normalidad concluimos que esta variable no sigue una distribució
 \newpage
 
 
-\section{Relación entre variables}
+\section{Relación entre variables cuantitativas}
 
-\subsection{Matrices de correlacion}
-Para visualizar de manera clara la relación entre todas las variables del dataset, utilizamos matrices de correlación. Estas matrices muestran un coeficiente que varía entre -1 y 1 (1: Correlación positiva perfecta, -1: Correlación negativa perfecta, 0: No hay correlación lineal.), el cual mide la fuerza y la dirección de la relación entre las variables. Este análisis es fundamental para determinar modelos de predicción de una variable en función de otras.
+\subsection{Matrices de correlación}
+Para visualizar de manera clara la relación entre todas las variables del dataset, utilizamos matrices de correlación. Estas muestran un coeficiente que varía entre -1 y 1 (1: Correlación positiva perfecta, -1: Correlación negativa perfecta, 0: No hay correlación lineal.), el cual mide la fuerza y la dirección de la relación entre las variables. Este análisis es fundamental para determinar modelos de predicción de una variable en función de otras.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.9\textwidth]{img/matriz_correlacion_pearson.png}
@@ -364,9 +364,9 @@ entender cómo las variables del dataset se relacionan entre sí y para identifi
 
 \newpage
 
-\section{Modelos de Regresion logística:}
+\subsection{Modelos de Regresion logística:}
 
-\section{Modelo de la variable Accidentes}
+\subsubsection{Modelo de la variable Accidentes}
 
 Para este modelo se tomaron como variables independientes: Sex, Fumar e Hipertension, y como
 variable dependiente Accidente.
@@ -439,7 +439,7 @@ El modelo de regresión logística tiene una alta precisión y es capaz de prede
 la mayoría de los casos. Las variables Fumar y Hipertension tienen un impacto significativo en 
 la probabilidad de accidente, mientras que el Sex tiene un impacto menor.
 
-\section{Modelo de la variable hipertensión}
+\subsubsection{Modelo de la variable hipertensión}
 
 Para este modelo se tomaron como variables independientes: Sex, Fumar y Edad, y como
 variable dependiente Hipertension.
@@ -487,6 +487,10 @@ Edad: Un coeficiente de -0.066406 sugiere que la edad tiene un impacto negativo 
 
 
 \newpage
+
+\section{Relación entre viriables categóricas}
+\subsection{Tablas de contigencia}
+\subsection{Pruebaa de Chi-Cuadrado de Independencia}
 
 \section{Gráficos de pastel}
 A continuación visualizaremos la proporcion en la que aparecen las variables cualitativas respecto del total

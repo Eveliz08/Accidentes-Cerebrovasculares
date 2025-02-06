@@ -6,6 +6,10 @@ from scipy.stats import kstest, shapiro, anderson
 import seaborn as sns
 from scipy.stats import norm
 from scipy.stats import pearsonr
+from itertools import combinations
+import plotly.express as px
+from PIL import Image
+import os
 
 # Crear un DataFrame de pandas
 df = pd.read_csv('Cerebrovasculares.csv')
@@ -37,7 +41,7 @@ ax.axis('off')
 tablaEstCentro_table = ax.table(cellText=tablaEstCentro.values, colLabels=tablaEstCentro.columns, rowLabels=tablaEstCentro.index, cellLoc='center', loc='center')
 tablaEstCentro_table.auto_set_font_size(False)
 tablaEstCentro_table.set_fontsize(10)
-tablaEstCentro_table.scale(1.2, 1.5) 
+tablaEstCentro_table.scale(1.2, 2) 
 
 # Se le da un color gris de fondo a la cabecera de las filas y las columnas
 for key, cell in tablaEstCentro_table.get_celld().items():
@@ -54,7 +58,7 @@ ax.axis('off')
 tablaEstDispersion_table = ax.table(cellText=tablaEstDispersion.values, colLabels=tablaEstDispersion.columns, rowLabels=tablaEstDispersion.index, cellLoc='center', loc='center')
 tablaEstDispersion_table.auto_set_font_size(False)
 tablaEstDispersion_table.set_fontsize(10)
-tablaEstDispersion_table.scale(1.2, 1.5)  # Increase the width and height of the table
+tablaEstDispersion_table.scale(1.2, 2)  # Increase the width and height of the table
 
 # Se le da un color gris de fondo a la cabecera de las filas y las columnas
 for key, cell in tablaEstDispersion_table.get_celld().items():
@@ -179,7 +183,7 @@ def test_normalidad_Shapiro_Wilk(variable, nivel_significancia=0.05):
 def test_Anderson_Darling(variable):
     result = anderson(df[variable])
     stat = result.statistic
-    p_value = None  # Anderson-Darling no proporciona un p-valor directamente
+    p_value = '-'  # Anderson-Darling no proporciona un p-valor directamente
     conclusion = 'Normal' if all(stat < cv for cv in result.critical_values) else 'No Normal'
     
     return [stat, p_value, conclusion]
@@ -207,7 +211,7 @@ def crear_tabla_test_normalidad(variable):
     tabla_test_normalidad = ax.table(cellText=tabla.values, colLabels=tabla.columns, rowLabels=tabla.index, cellLoc='center', loc='center')
     tabla_test_normalidad.auto_set_font_size(False)
     tabla_test_normalidad.set_fontsize(10)
-    tabla_test_normalidad.scale(1.2, 1.5)
+    tabla_test_normalidad.scale(1.2, 2)
 
     # Se le da un color gris de fondo a la cabecera de las filas y las columnas
     for key, cell in tabla_test_normalidad.get_celld().items():
@@ -221,7 +225,7 @@ crear_tabla_test_normalidad('Edad')
 crear_tabla_test_normalidad('Avg_Glucosa')
 crear_tabla_test_normalidad('IMC')
 
-# Crear una matriz de correlación de las variables del DataFrame
+# Crear una matriz de correlación de Pearson
 correlation_matrix_pearson = df.corr(method='pearson')
 plt.figure(figsize=(10, 8))
 sns.heatmap(correlation_matrix_pearson, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black',  vmin=-1, vmax=1)
@@ -237,10 +241,70 @@ plt.savefig('./img/matriz_correlacion_spearman.png', dpi=300, bbox_inches='tight
 
 
 
-# # Gráficos de dispersión
-# sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], diag_kind='kde', plot_kws={'alpha':0.6, 's':80, 'edgecolor':'k'})
-# plt.savefig('./img/graficos_dispersion.png', dpi=300, bbox_inches='tight')
-
 # Matriz de regresión lineal de las variables Edad, IMC y Avg_Glucosa
 sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], kind='reg', plot_kws={'line_kws':{'color':'red', 'lw':1}, 'scatter_kws': {'alpha':0.8, 's':40, 'color':'gray'}})
 plt.savefig('./img/matriz_regresion_lineal.png', dpi=300, bbox_inches='tight')
+
+variables_discretas = ['Sex', 'Hipertension', 'Cardiopatia', 'Casado', 'Tipo_Trabajo', 'Tipo_Residencia', 'Fumar', 'Accidentes']
+
+duplas = combinations(variables_discretas, 2)
+
+for pareja in duplas:
+    tabla_contingencia = pd.crosstab(df[pareja[0]], df[pareja[1]])
+    
+    # # Crear un heatmap de la tabla de contingencia
+    # plt.figure(figsize=(10, 8))
+    # sns.heatmap(tabla_contingencia, annot=True, fmt='d', cmap='YlGnBu', linewidths=.5)
+    # plt.title(f'Tabla de Contingencia - Heatmap ({pareja[0]} vs {pareja[1]})')
+    # plt.xlabel(pareja[1])
+    # plt.ylabel(pareja[0])
+    # plt.savefig(f'./img/Tablas/heatmap_contingencia_{pareja[0]}_{pareja[1]}.png', dpi=300, bbox_inches='tight')
+    
+    
+    # Crear un gráfico de barras apiladas de la tabla de contingencia
+    tabla_contingencia.plot(kind='bar', stacked=True, figsize=(10, 8))
+    plt.title(f'Tabla de Contingencia - Gráfico de Barras Apiladas ({pareja[0]} vs {pareja[1]})')
+    plt.xlabel(pareja[0])
+    plt.ylabel('Frecuencia')
+    plt.legend(title=pareja[1])
+    plt.savefig(f'./img/Barplot/{pareja[0]}_{pareja[1]}.png', dpi=300, bbox_inches='tight')
+
+
+plt.close()
+
+
+def CrearCollage(ruta, nombre):
+    # Directorio donde se guardan las imágenes de gráficos de barras apiladas
+    barplot_dir = './img/Tablas/barplots/'
+    barplot_images = [os.path.join(ruta, img) for img in os.listdir(ruta) if img.endswith('.png')]
+
+    # Tamaño del collage
+    collage_width = 1600
+    collage_height = 2000
+
+    # Crear una nueva imagen en blanco para el collage
+    collage = Image.new('RGB', (collage_width, collage_height), (255, 255, 255))
+
+    # Tamaño de cada imagen en el collage
+    image_width = collage_width // 4
+    image_height = collage_height // 7
+
+    # Posición inicial
+    x_offset = 0
+    y_offset = 0
+
+    # Añadir cada imagen al collage
+    for img_path in barplot_images:
+        img = Image.open(img_path)
+        img = img.resize((image_width, image_height))
+        collage.paste(img, (x_offset, y_offset))
+        x_offset += image_width
+        if x_offset >= collage_width:
+            x_offset = 0
+            y_offset += image_height
+
+    # Guardar el collage
+    collage.save(ruta +'/Collage/collage_' + nombre + '.png')
+
+
+CrearCollage('./img/Barplot/', 'barplot')
