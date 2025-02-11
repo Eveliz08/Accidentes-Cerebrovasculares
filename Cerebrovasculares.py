@@ -11,6 +11,8 @@ import plotly.express as px
 from PIL import Image
 import os
 from scipy.stats import chi2_contingency
+from scipy.stats import ttest_ind
+from scipy.stats import levene
 
 # Crear un DataFrame de pandas
 df = pd.read_csv('Cerebrovasculares.csv')
@@ -50,7 +52,7 @@ for key, cell in tablaEstCentro_table.get_celld().items():
         cell.set_facecolor('lightgray')
 
 plt.savefig('./img/Tablas/Estadísticos_de_centro.png', dpi=300, bbox_inches='tight')
-
+plt.close()
 
 # Guarda la tabla de los estadísticos de dispersión como imágenes
 fig, ax = plt.subplots(figsize=(12, 2)) 
@@ -67,6 +69,7 @@ for key, cell in tablaEstDispersion_table.get_celld().items():
         cell.set_facecolor('lightgray')
 
 plt.savefig('./img/Tablas/Estadísticos_de_dispersión.png', dpi=300, bbox_inches='tight')
+plt.close()
 
 
 #Crear gráficos pastel de las variables cualitativas
@@ -82,6 +85,7 @@ def crear_grafico_pastel(variable, label1, label2):
     plt.title("Gráfico de Pastel de la variable " + variable)
 
     plt.savefig("./img/GráficosPastel/grafico_pastel_" + variable + ".png", dpi = 300)
+    plt.close()
 
 # El primer parametro es el nombre de la variable del dataset, segundo la variable 
 # categórica que se codifica con 0 y tercero la que se codifica con 1.
@@ -91,7 +95,7 @@ crear_grafico_pastel('Casado', 'Soltero', 'casado')
 crear_grafico_pastel('Cardiopatia', 'No presenta cardiopatía', 'Presenta cardiopatía')
 crear_grafico_pastel('Tipo_Residencia', 'Urbana', 'Rural')
 crear_grafico_pastel('Fumar', 'No fuma', 'fuma')
-crear_grafico_pastel('Accidentes', 'Ha tenido accidente cerebrovascular', 'No ha tenido')
+crear_grafico_pastel('Accidentes', 'No ha tenido accidentes cerebrovascular', 'Ha tenido')
 
 # df_map = df['Tipo_Trabajo'].map({
 #     0: 'Nunca ha trabajado', 
@@ -136,6 +140,7 @@ def Crear_Histograma (variable, color_barras):
     plt.grid(axis='y', color='lightgray', linestyle='--', alpha=0.75)
 
     plt.savefig("./img/Histogramas/Histograma_" + variable + ".png", dpi = 300)
+    plt.close()
 
 
 Crear_Histograma('Edad', 'lightgreen' )
@@ -158,11 +163,26 @@ def Crear_Boxplot (variable, color):
     plt.scatter(df[variable], y_values, alpha=0.6, color=color, zorder=2)
 
     plt.savefig("./img/Boxplot/Boxplt_" + variable + ".png", dpi = 300)
+    plt.close()
 
 Crear_Boxplot('Edad', 'blue')
 Crear_Boxplot('IMC', 'red')
 Crear_Boxplot('Avg_Glucosa', 'yellow')
 
+
+def Distribucion_por_Accidente (variable):
+    plt.figure(figsize=(10, 6))
+    sns.histplot(data=df, x= variable, hue='Accidentes', element='step', stat='density', common_norm=False)
+    plt.title(f'Distribución de {variable} por Accidentes Cerebrovasculares', fontsize=16)
+    plt.xlabel(variable, fontsize=14)
+    plt.ylabel('Densidad', fontsize=14)
+    plt.grid(True)
+    plt.savefig(f'./img/Histogramas/distribucion_{variable}_por_Accidentes.png')
+    plt.close()
+
+Distribucion_por_Accidente('Edad')
+Distribucion_por_Accidente('IMC')
+Distribucion_por_Accidente('Avg_Glucosa')
 
 
 def test_normalidad_Kolmogorov_Smirnov(variable, nivel_significancia=0.05):
@@ -220,6 +240,7 @@ def crear_tabla_test_normalidad(variable):
             cell.set_facecolor('lightgray')
 
     plt.savefig('./img/Tablas/test_normalidad_' + variable + '.png', dpi=300, bbox_inches='tight')
+    plt.close()
 
 
 crear_tabla_test_normalidad('Edad')
@@ -232,6 +253,8 @@ plt.figure(figsize=(10, 8))
 sns.heatmap(correlation_matrix_pearson, annot=True, cmap='coolwarm', linewidths=0.5, linecolor='black',  vmin=-1, vmax=1)
 plt.title('Matriz de Correlación de Pearson')
 plt.savefig('./img/matriz_correlacion_pearson.png', dpi=300, bbox_inches='tight')
+plt.close()
+
 
 # Matriz de correlación de Spearman
 correlation_matrix_spearman = df.corr(method='spearman')
@@ -239,12 +262,13 @@ plt.figure(figsize=(10, 8))
 sns.heatmap(correlation_matrix_spearman, annot=True, cmap='YlGn', linewidths=0.5, linecolor='black', vmin=-1, vmax=1)
 plt.title('Matriz de Correlación de Spearman')
 plt.savefig('./img/matriz_correlacion_spearman.png', dpi=300, bbox_inches='tight')
-
+plt.close()
 
 
 # Matriz de regresión lineal de las variables Edad, IMC y Avg_Glucosa
 sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], kind='reg', plot_kws={'line_kws':{'color':'red', 'lw':1}, 'scatter_kws': {'alpha':0.8, 's':40, 'color':'gray'}})
 plt.savefig('./img/matriz_regresion_lineal.png', dpi=300, bbox_inches='tight')
+plt.close()
 
 variables_discretas = ['Sex', 'Hipertension', 'Cardiopatia', 'Casado', 'Tipo_Trabajo', 'Tipo_Residencia', 'Fumar']
 
@@ -260,6 +284,7 @@ for pareja in variables_discretas:
     plt.xlabel('Accidentes Cerebrovasculares')
     plt.ylabel(pareja)
     plt.savefig(f'./img/Heatmap/Accidentes_{pareja}.png', dpi=300, bbox_inches='tight')
+    plt.close()
     
     
     # Crear un gráfico de barras apiladas de la tabla de contingencia
@@ -269,9 +294,9 @@ for pareja in variables_discretas:
     plt.ylabel('Frecuencia')
     plt.legend(title=pareja)
     plt.savefig(f'./img/Barplot/Accidentes_{pareja}.png', dpi=300, bbox_inches='tight')
+    plt.close()
 
 
-plt.close()
 
 
 def CrearCollage(ruta, nombre):
@@ -352,3 +377,79 @@ def crear_tabla_chi_cuadrado(variables):
     plt.savefig('./img/Tablas/test_chi_cuadrado.png', dpi=300, bbox_inches='tight')
 
 crear_tabla_chi_cuadrado(variables_discretas)
+
+def prueba_varianzas_iguales(df, variables, factor, muestra_tamano=30):
+    columnas = ['Estadístico Levene', 'p-valor', 'Conclusión']
+    tabla_resultados = pd.DataFrame(columns=columnas, index=variables)
+    
+    for variable in variables:
+        # Filtrar las dos poblaciones
+        poblacion_0 = df[df[factor] == 0][variable].sample(n=muestra_tamano, random_state=1)
+        poblacion_1 = df[df[factor] == 1][variable].sample(n=muestra_tamano, random_state=1)
+        
+        # Realizar la prueba de Levene para igualdad de varianzas
+        stat, p_value = levene(poblacion_0, poblacion_1)
+        
+        conclusion = 'Varianzas iguales' if p_value > 0.05 else 'Varianzas diferentes'
+        
+        # Añadir los resultados a la tabla
+        tabla_resultados.loc[variable] = [stat, p_value, conclusion]
+    
+    # Guardar la tabla como imagen
+    fig, ax = plt.subplots(figsize=(10, 2))
+    ax.axis('tight')
+    ax.axis('off')
+    tabla_resultados_img = ax.table(cellText=tabla_resultados.values, colLabels=tabla_resultados.columns, rowLabels=tabla_resultados.index, cellLoc='center', loc='center')
+    tabla_resultados_img.auto_set_font_size(False)
+    tabla_resultados_img.set_fontsize(10)
+    tabla_resultados_img.scale(1.2, 2.5)
+    
+    # Se le da un color gris de fondo a la cabecera de las filas y las columnas
+    for key, cell in tabla_resultados_img.get_celld().items():
+        if key[0] == 0 or key[1] == -1:
+            cell.set_facecolor('lightgray')
+    
+    plt.savefig('./img/Tablas/prueba_varianzas_iguales.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+# Llamar a la función para realizar la prueba de igualdad de varianzas sobre las variables
+variables = ['Edad', 'IMC', 'Avg_Glucosa']
+prueba_varianzas_iguales(df, variables, 'Accidentes')
+
+def prueba_hipotesis_dos_poblaciones(df, variable, factor, muestra_tamano=30):
+    # Filtrar las dos poblaciones
+    poblacion_0 = df[df[factor] == 0][variable].sample(n=muestra_tamano, random_state=1)
+    poblacion_1 = df[df[factor] == 1][variable].sample(n=muestra_tamano, random_state=1)
+    
+    # Realizar la prueba t de dos muestras independientes
+    stat, p_value = ttest_ind(poblacion_0, poblacion_1)
+    
+    conclusion = 'No hay diferencia significativa' if p_value > 0.05 else 'Hay diferencia significativa'
+    
+    # Crear una tabla con los resultados
+    resultados = pd.DataFrame({
+        'Estadístico t': [stat],
+        'p-valor': [p_value],
+        'Conclusión': [conclusion]
+    })
+    
+    # Guardar la tabla como imagen
+    fig, ax = plt.subplots(figsize=(10, 2))
+    ax.axis('tight')
+    ax.axis('off')
+    tabla_resultados = ax.table(cellText=resultados.values, colLabels=resultados.columns, cellLoc='center', loc='center')
+    tabla_resultados.auto_set_font_size(False)
+    tabla_resultados.set_fontsize(10)
+    tabla_resultados.scale(1.2, 2.5)
+    
+    # Se le da un color gris de fondo a la cabecera de las filas y las columnas
+    for key, cell in tabla_resultados.get_celld().items():
+        if key[0] == 0:
+            cell.set_facecolor('lightgray')
+    
+    plt.savefig(f'./img/Tablas/prueba_t_student_{variable}.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+# Llamar a la función para realizar la prueba de hipótesis sobre la variable 'Edad'
+prueba_hipotesis_dos_poblaciones(df, 'Edad', 'Accidentes')
+prueba_hipotesis_dos_poblaciones(df, 'IMC', 'Accidentes')

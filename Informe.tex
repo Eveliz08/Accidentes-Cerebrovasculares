@@ -63,7 +63,7 @@ framerule=1pt
 \centering
 \item Eveliz Espinaco Milián
 \item Michell Viu Ramirez
-\item Dayan Cabrera Leal
+\item Dayan Cabrera Corvo
 \end{itemize}
 \vspace {0.5cm}
 \text{\Large Grupo 311, Ciencia de la computación,}\\
@@ -158,7 +158,7 @@ A continuación, se describen las variables incluidas en el dataset, detallando 
     \end{itemize}
 \item \textbf{Accidentes:} Guarda la información de si el paciente a sufrido o no accidentes cerebrovasculares.   
     \begin{itemize}
-    \item Valores posibles: 0 El paciente a sufrido accidentes cerebrovasculares, 1 en caso contrario.
+    \item Valores posibles: 1 El paciente ha sufrido accidentes cerebrovasculares, 0 en caso contrario.
     \item Clasificación: Según el tipo de dato se clasifica en una \textbf{variable cualitativa nominal}.
     \end{itemize}
 
@@ -271,9 +271,6 @@ de la media y con una ausencia de valores atípicos significativos. La mayor fre
 facilita el análisis y la interpretación de los datos, ya que reduce la influencia de valores extremos. Podemos concluir con los resultados de los test de normalidad.
 
 
-
-
-
 \subsection{Distribución de la variable AvgGlucosa}
 \begin{figure}[H]
     \centering
@@ -317,14 +314,6 @@ En estos gráficos de la variable Índice de Masa Corporal (IMC) se observan en 
 la variable que distorsionan la uniformidad de su distribución corroborando los valores de las medidas de dispersión de esta variable. 
 También se observa que hay un grupo grande de individuos con un índice de masa corporal entre los 25 y 30 kg/m\^2. Con los resultados 
 de los test de normalidad concluimos que esta variable no sigue una distribución normal.
-
-
-
-
-
-
-
-
 
 \newpage
 
@@ -450,11 +439,11 @@ variable dependiente Hipertension.
 
 
 Accuracy: 0.825
-La precisión del modelo es del 82.5%, lo que indica que el modelo predice correctamente 
-el 82.5% de los casos en el conjunto de prueba. Esto es un buen indicador, aunque hay margen para mejorar.
+La precisión del modelo es del 82.5\%, lo que indica que el modelo predice correctamente 
+el 82.5\% de los casos en el conjunto de prueba. Esto es un buen indicador, aunque hay margen para mejorar.
 Confusion Matrix:
 [[22  5]
- [ 2 11]]
+[ 2 11]]
 
 La matriz de confusión muestra:
 
@@ -474,7 +463,7 @@ Classification Report:
 weighted avg       0.84      0.82      0.83        40
 
 Precisión (precision): La precisión para la clase 0 es 0.92 y para la clase 1 es 0.69. Esto significa que el modelo es más preciso en predecir la clase 0 que la clase 1.
-Exhaustividad (recall): La exhaustividad para la clase 0 es 0.81 y para la clase 1 es 0.85. Esto significa que el modelo identifica correctamente el 85% de los casos de la clase 1.
+Exhaustividad (recall): La exhaustividad para la clase 0 es 0.81 y para la clase 1 es 0.85. Esto significa que el modelo identifica correctamente el 85\% de los casos de la clase 1.
 F1-score: El F1-score es 0.86 para la clase 0 y 0.76 para la clase 1, lo que indica un buen equilibrio entre precisión y exhaustividad.
 
 Coeficientes del modelo:
@@ -491,7 +480,49 @@ Edad: Un coeficiente de -0.066406 sugiere que la edad tiene un impacto negativo 
 
 
 \newpage
+\section{Gráficos de pastel}
+A continuación visualizaremos la proporcion en la que aparecen las variables cualitativas respecto del total
 
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Cardiopatia.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Accidentes.png}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Casado.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Fumar.png}
+    \end{minipage}
+    \vfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Hipertension.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Sex.png}
+    \end{minipage}
+    \vfill
+    % \begin{minipage}{0.45\textwidth}
+    %     \centering
+    %     \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Tipo_Residencia.png}
+    % \end{minipage}
+    % \begin{minipage}{0.45\textwidth}
+    %     \centering
+    %     \includegraphics[width=0.9\textwidth]{img/GráficosPastel/grafico_pastel_Tipo_Trabajo.png}
+    % \end{minipage}
+\end{figure}
+
+\newpage
 
 \section{Relación entre variables categóricas}
 \subsection{Heatmaps de las tablas de contigencia}
@@ -526,6 +557,117 @@ Un p-valor bajo (generalmente < 0.05) indica que hay suficiente evidencia para r
 % Es importante asegurarse de que las condiciones para aplicar la prueba de Chi-Cuadrado se cumplan, como tener un tamaño de muestra suficientemente grande y que las frecuencias esperadas en cada celda de la tabla de contingencia sean adecuadas (generalmente al menos 5). Si estas condiciones no se cumplen, los resultados de la prueba pueden no ser fiables.
 
 \newpage
+
+
 \section{Pruebas de hipótesis de dos poblaciones}
+Para este análisis, seleccionaremos dos muestras aleatorias de nuestro conjunto de datos. La primera muestra consistirá en 30 observaciones de individuos que no han sufrido accidentes cerebrovasculares, mientras que la segunda muestra incluirá 30 observaciones de individuos que sí han sufrido accidentes cerebrovasculares. 
+
+El objetivo de este estudio es comparar las características de ambas poblaciones para identificar diferencias significativas que puedan estar asociadas con la ocurrencia de accidentes cerebrovasculares. Utilizaremos la prueba de hipótesis para dos poblaciones t de Student para medias de muestras aleatorias independientes, dependiendo de la normalidad de los datos.
+
+Esperamos que los resultados de este análisis proporcionen información valiosa sobre los factores de riesgo y las características distintivas de los individuos que han sufrido accidentes cerebrovasculares en comparación con aquellos que no los han sufrido. Esto permitirá una mejor comprensión de las variables que influyen en la probabilidad de sufrir un accidente cerebrovascular y contribuirá al desarrollo de estrategias preventivas más efectivas.
+
+\subsection{Distribución de las variables por accidentes cerebrovasculares}
+Para visualizar mejor las diferencias entre los individuos que han sufrido accidentes cerebrovasculares y los que no, presentamos los histogramas de las variables 'Edad', 'IMC' y 'AvgGlucosa' para ambos subconjuntos. Estos gráficos nos permiten observar cómo se distribuyen las variables en cada grupo, ayudándonos a detectar posibles diferencias en sus distribuciones y a comprender mejor los factores que pueden influir en la ocurrencia de accidentes cerebrovasculares. La visualización de estas distribuciones es una herramienta poderosa para identificar patrones y tendencias que pueden no ser evidentes a partir de los análisis estadísticos únicamente.
+
+\subsubsection{Distribución de la variable 'Edad'}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Histogramas/distribucion_Edad_por_Accidentes.png}
+    \caption{Distribución de la variable 'Edad' por subconjuntos de accidentes cerebrovasculares}
+\end{figure}
+
+El histograma de la variable 'Edad' muestra la distribución de las edades en los dos subconjuntos. Podemos observar que no hay grandes diferencias en la distribución de las edades entre los individuos que han sufrido accidentes cerebrovasculares y los que no. Ambos grupos abarcan casi el mismo rango de edad, con la edad más frecuente en ambos casos entre los 60 y 62 años, intervalos en los que se encuentran la media y la mediana de esta variable. Esto sugiere que la edad no es un factor relevante en la ocurrencia de accidentes cerebrovasculares en nuestras observaciones.
+
+\subsubsection{Distribución de la variable 'IMC'}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Histogramas/distribucion_IMC_por_Accidentes.png}
+    \caption{Distribución de la variable 'IMC' por subconjuntos de accidentes cerebrovasculares}
+\end{figure}
+En este histograma podemos observar que la mayoría de las personas en nuestra muestra que han sufrido accidentes cerebrovasculares tienen un índice de masa corporal (IMC) entre 28 y 48 kg/m\(^2\), lo que indica que son personas con sobrepeso u obesidad. En contraste, todas las personas de nuestro estudio que no han sufrido accidentes cerebrovasculares tienen un IMC entre 16 y 26 kg/m\(^2\), lo que corresponde a un peso normal o sobrepeso severo. Esta escasa intersección entre ambos subconjuntos sugiere que el IMC puede ser un factor determinante en la ocurrencia de accidentes cerebrovasculares.
+\subsection{Distribución de la variable 'AvgGlucosa'}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Histogramas/distribucion_Avg_Glucosa_por_Accidentes.png}
+    \caption{Distribución de la variable 'AvgGlucosa' por subconjuntos de accidentes cerebrovasculares}
+\end{figure}
+
+Similar al gráfico de la variable 'IMC', observamos una escasa intersección entre los individuos que han sufrido accidentes cerebrovasculares y los que no. Esto puede deberse a la estrecha relación entre las variables 'IMC' y 'AvgGlucosa', con un coeficiente de correlación muy cercano a 1.
+
+
+
+\subsection{Pruebas de homogeneidad de varianzas}
+Para deterimar si podemos asumir la homogeneidad de las varianzas de las variables 'Edad', 'IMC' y 'AvgGlucosa' entre los grupos de individuos que han sufrido accidentes cerebrovasculares y los que no, utilizamos la prueba de Levene. Esta prueba es útil para verificar si las varianzas de dos o más grupos son iguales, lo cual es un supuesto importante para la validez de la prueba de t Student.
+\\ \\
+La hipótesis nula (\(H_0\)) y la hipótesis alternativa (\(H_a\)) para la prueba de Levene son las siguientes:
+\begin{itemize}
+    \item \(H_0\): Las varianzas de los grupos son iguales.
+    \item \(H_a\): Las varianzas de los grupos son diferentes.
+\end{itemize}
+
+El estadístico de Levene se utiliza para evaluar la igualdad de varianzas entre dos o más grupos. La fórmula del estadístico de Levene es la siguiente:
+
+\[ W = \frac{(N - k)}{(k - 1)} \cdot \frac{\sum_{i=1}^{k} N_i (Z_{i\cdot} - Z_{\cdot\cdot})^2}{\sum_{i=1}^{k} \sum_{j=1}^{N_i} (Z_{ij} - Z_{i\cdot})^2} \]
+
+Donde:
+\begin{itemize}
+    \item \( N \) es el número total de observaciones.
+    \item \( k \) es el número de grupos.
+    \item \( N_i \) es el número de observaciones en el grupo \( i \).
+    \item \( Z_{ij} = |Y_{ij} - \bar{Y}_{i\cdot}| \), donde \( Y_{ij} \) es la \( j \)-ésima observación en el grupo \( i \) y \( \bar{Y}_{i\cdot} \) es la media del grupo \( i \).
+    \item \( Z_{i\cdot} \) es la media de \( Z_{ij} \) en el grupo \( i \).
+    \item \( Z_{\cdot\cdot} \) es la media global de \( Z_{ij} \).
+\end{itemize}
+
+El estadístico de Levene sigue una distribución \( F \) con \( k - 1 \) y \( N - k \) grados de libertad.
+\\ \\
+Resultados de la prueba de Levene:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/Tablas/prueba_varianzas_iguales.png}
+\end{figure}
+En la variable AvgGlucosa se rechaza la hipótesis mientras que en las variables IMC y Edad no hay suficientes pruebas para rechazar la hipótesis nula. \\
+Por lo tanto, solo podemos asumir que las variables 'Edad' e 'IMC' cumplen con la homogeneidad de varianzas. En las próximas secciones, procederemos a realizar las pruebas de hipótesis de dos poblaciones sobre las medias de estas variables.
+
+\subsection{Prueba de hipótesis de la t de Student para las variables 'Edad' e 'IMC'}
+
+Para comparar las medias de las variables 'Edad' e 'IMC' entre los grupos de individuos que han sufrido accidentes cerebrovasculares y los que no, utilizamos la prueba de t de Student para muestras independientes.
+\\ \\
+La hipótesis nula (\(H_0\)) y la hipótesis alternativa (\(H_a\)) para la prueba de t de Student son las siguientes:
+\begin{itemize}
+    \item \(H_0\): No hay diferencia significativa entre las medias de los dos grupos.
+    \item \(H_a\): Hay una diferencia significativa entre las medias de los dos grupos.
+\end{itemize}
+
+La fórmula del estadístico t para muestras independientes es la siguiente:
+
+\[ t = \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}} \]
+
+Donde:
+\begin{itemize}
+    \item \(\bar{X}_1\) y \(\bar{X}_2\) son las medias de los dos grupos.
+    \item \(s_1^2\) y \(s_2^2\) son las varianzas de los dos grupos.
+    \item \(n_1\) y \(n_2\) son los tamaños de muestra de los dos grupos.
+\end{itemize}
+
+El estadístico t sigue una distribución t con \(n_1 + n_2 - 2\) grados de libertad.
+\vspace{1cm}
+\\   Resultados de la prueba de t de Student para la variable 'Edad':
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/Tablas/prueba_t_student_Edad.png}
+\end{figure}
+
+Resultados de la prueba de t de Student para la variable 'IMC':
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/Tablas/prueba_t_student_IMC.png}
+\end{figure}
+
+En la variable 'Edad' tenemos que p-valor es mayor que 0.05 por lo que rechazamos la hipótesis nula mientras que en la variable 'IMC' no tenemos suficientes pruebas para rechazar la hipótesis nula.
+\\
+Estos resultados nos permiten nos permite concluir que la variable 'IMC' tienen una influencia significativa en la ocurrencia de accidentes cerebrovasculares en nuestra muestra.
 
 \end{document}
