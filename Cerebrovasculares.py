@@ -247,6 +247,11 @@ crear_tabla_test_normalidad('Edad')
 crear_tabla_test_normalidad('Avg_Glucosa')
 crear_tabla_test_normalidad('IMC')
 
+# Aplicando transformaciones logaritmicas a la variable IMC
+df['log_IMC'] = np.log(df['IMC'])
+
+crear_tabla_test_normalidad('log_IMC')
+
 # Crear una matriz de correlación de Pearson
 correlation_matrix_pearson = df.corr(method='pearson')
 plt.figure(figsize=(10, 8))
@@ -266,7 +271,7 @@ plt.close()
 
 
 # Matriz de regresión lineal de las variables Edad, IMC y Avg_Glucosa
-sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], kind='reg', plot_kws={'line_kws':{'color':'red', 'lw':1}, 'scatter_kws': {'alpha':0.8, 's':40, 'color':'gray'}})
+sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], kind='reg', plot_kws={'line_kws':{'color':'red', 'lw':1}, 'scatter_kws': {'alpha':0.8, 's':20, 'color':'gray'}})
 plt.savefig('./img/matriz_regresion_lineal.png', dpi=300, bbox_inches='tight')
 plt.close()
 

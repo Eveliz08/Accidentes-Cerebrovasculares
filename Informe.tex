@@ -314,9 +314,79 @@ En estos gráficos de la variable Índice de Masa Corporal (IMC) se observan en 
 la variable que distorsionan la uniformidad de su distribución corroborando los valores de las medidas de dispersión de esta variable. 
 También se observa que hay un grupo grande de individuos con un índice de masa corporal entre los 25 y 30 kg/m\^2. Con los resultados 
 de los test de normalidad concluimos que esta variable no sigue una distribución normal.
+\\ \\
+
+Dado el sesgo positivo (cola larga hacia la derecha) observado en el histograma de esta variable, lo que puede estar afectando los resultados de las pruebas de normalidad, aplicaremos una transformación logarítmica (logaritmo natural) a los valores de esta variable. Esto tiene como objetivo comprimir los datos y estabilizar la varianza, permitiendo una mejor evaluación de la normalidad.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{img/Tablas/test_normalidad_log_IMC.png}
+\end{figure}
+
+Como se observa en los resultados, al aplicar esta transformación en la escala de la variable, obtenemos pruebas de normalidad aceptadas.
 
 \newpage
 
+\section{Estimación}
+
+\subsection{Estimación puntual}
+La estimación puntual consiste en utilizar un solo valor, obtenido a partir de la muestra, para estimar un parámetro poblacional. A continuación, se presentan las estimaciones puntuales de las medias de las variables 'Edad', 'IMC' y 'AvgGlucosa'.
+
+\begin{itemize}
+    \item \textbf{Edad:} La media poblacional de la variable 'Edad' se estima que es $\bar{X}_{\text{Edad}} = 60.43$ años.
+    \item \textbf{IMC:} La media poblacional de la variable 'IMC' se estima que es $\bar{X}_{\text{IMC}} = 28.25$ kg/m\(^2\).
+    \item \textbf{AvgGlucosa:} La media poblacional de la variable 'AvgGlucosa' se estima que es $\bar{X}_{\text{AvgGlucosa}} = 123.71$ mg/dL.
+\end{itemize}
+
+\subsection{Estimación por intervalo}
+La estimación por intervalo proporciona un rango de valores dentro del cual se espera que se encuentre el parámetro poblacional con un cierto nivel de confianza. A continuación, se presentan los intervalos de confianza para las medias de las variables 'Edad', 'IMC' y 'AvgGlucosa'.
+
+\subsubsection{Intervalo de confianza para la media de la variable 'Edad'}
+Dado que la variable 'Edad' sigue una distribución normal, utilizamos la fórmula del intervalo de confianza para la media de una distribución normal:
+
+\[ IC = \bar{X} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right) \]
+
+Donde:
+\begin{itemize}
+    \item $\bar{X}$ es la media muestral.
+    \item $Z_{\alpha/2}$ es el valor crítico de la distribución normal estándar para un nivel de confianza del 95\%.
+    \item $\sigma$ es la desviación estándar muestral.
+    \item $n$ es el tamaño de la muestra.
+\end{itemize}
+
+Para la variable 'Edad', con un nivel de confianza del 95\%, el intervalo de confianza es:
+
+\[ IC_{\text{Edad}} = 60.43 \pm 1.96 \left( \frac{4.5}{\sqrt{200}} \right) \]
+\[ IC_{\text{Edad}} = 60.43 \pm 0.62 \]
+\[ IC_{\text{Edad}} = ( 59.81;  61.05 ) \]
+
+\subsubsection{Intervalo de confianza para la media de la variable 'IMC'}
+Dado que la variable 'IMC' sigue una distribución normal, utilizamos la misma fórmula del intervalo de confianza para la media de una distribución normal:
+
+\[ IC_{\text{IMC}} = 28.25 \pm 1.96 \left( \frac{5.2}{\sqrt{200}} \right) \]
+\[ IC_{\text{IMC}} = 28.25 \pm 0.72 \]
+\[ IC_{\text{IMC}} = ( 27.53 ; 28.97 ) \]
+
+\subsubsection{Intervalo de confianza para la media de la variable 'AvgGlucosa'}
+Dado que la variable 'AvgGlucosa' no sigue una distribución normal, utilizamos la fórmula del intervalo de confianza para la media de una distribución no normal, utilizando el estadístico t de Student:
+
+\[ IC = \bar{X} \pm t_{\alpha/2, n-1} \left( \frac{s}{\sqrt{n}} \right) \]
+
+Donde:
+\begin{itemize}
+    \item $\bar{X}$ es la media muestral.
+    \item $t_{\alpha/2, n-1}$ es el valor crítico de la distribución t de Student para un nivel de confianza del 95\% y $n-1$ grados de libertad.
+    \item $s$ es la desviación estándar muestral.
+    \item $n$ es el tamaño de la muestra.
+\end{itemize}
+
+Para la variable 'AvgGlucosa', con un nivel de confianza del 95\%, el intervalo de confianza es:
+
+\[ IC_{\text{AvgGlucosa}} = 123.71 \pm 1.97 \left( \frac{30.5}{\sqrt{200}} \right) \]
+\[ IC_{\text{AvgGlucosa}} = 123.71 \pm 4.24 \]
+\[ IC_{\text{AvgGlucosa}} = ( 119.47;  127.95 ) \]
+
+
+\newpage
 
 \section{Relación entre variables cuantitativas}
 
@@ -525,8 +595,8 @@ A continuación visualizaremos la proporcion en la que aparecen las variables cu
 \newpage
 
 \section{Relación entre variables categóricas}
-\subsection{Heatmaps de las tablas de contigencia}
-
+Un Heatmap es una representación visual de las tablas de contingencia, donde los valores de la tabla se traducen en colores. Esta representación facilita la interpretación de los datos, permitiendo detectar valores atípicos, patrones, tendencias y la intensidad de las relaciones entre las variables de manera más intuitiva y rápida.
+\\ \\
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{img/Heatmap/Accidentes_Cardiopatia.png} \hspace{0.5cm}
