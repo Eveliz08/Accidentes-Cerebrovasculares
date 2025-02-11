@@ -271,7 +271,7 @@ plt.close()
 
 
 # Matriz de regresión lineal de las variables Edad, IMC y Avg_Glucosa
-sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], kind='reg', plot_kws={'line_kws':{'color':'red', 'lw':1}, 'scatter_kws': {'alpha':0.8, 's':20, 'color':'gray'}})
+sns.pairplot(df[['Edad', 'IMC', 'Avg_Glucosa']], kind='reg', plot_kws={'line_kws':{'color':'red', 'lw':1}, 'scatter_kws': {'alpha':0.6,  'color':'gray'}})
 plt.savefig('./img/matriz_regresion_lineal.png', dpi=300, bbox_inches='tight')
 plt.close()
 
